@@ -1,8 +1,0 @@
-{
-  "cleanUrls": false,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/brand-book", "destination": "/Brand%20Book.html" },
-    { "source": "/homepage", "destination": "/Homepage.html" }
-  ]
-}
