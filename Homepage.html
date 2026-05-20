@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astarté — Makeup that loves every skin tone.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500;            /* V2: BODY MEDIUM */
+  line-height: 1.45;            /* V2: TIGHTER per May 15 direction */
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── V2 TOKENS — 4 colors, pink tertiary ──────────────── */
+:root {
+  --black:        #0f0f0f;      /* primary dominant (working) */
+  --black-soft:   #2d2d2d;      /* secondary surface */
+  --white:        #fafafa;      /* whisper white (working) */
+  --whisper:      #f5f0f0;
+  --stone:        #595959;      /* supporting tonal middle (working) */
+  --stone-soft:   rgba(255,255,255,0.55);
+  --stone-dim:    rgba(255,255,255,0.38);
+
+  --rose-light:   #d4b5b0;
+  --rose-mid:     #b38285;      /* anchor */
+  --rose-dark:    #8b5a5d;
+  --rose-line:    rgba(179,130,133,0.55);
+
+  --line:         rgba(255,255,255,0.1);
+  --line-soft:    rgba(255,255,255,0.06);
+
+  --sans:         'Albert Sans', sans-serif;
+  --ease:         cubic-bezier(0.22, 1, 0.36, 1);
+  --gutter:       clamp(24px, 6vw, 96px);
+  --max:          1440px;
+}
+
+/* ── TYPE ─────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.eyebrow-rose { color: var(--rose-mid); }
+.eyebrow-rose-light { color: var(--rose-light); }
+.eyebrow-stone { color: var(--stone-soft); }
+
+.h-display {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+.h-display-on-dark { color: var(--white); }
+
+.h-sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.body-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.body-tight { line-height: 1.45; }
+
+.tagline-italic {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ── BUTTONS ─────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), transform 220ms var(--ease);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-light { background: var(--white); color: var(--black); border-color: var(--white); }
+.btn-light:hover { background: rgba(255,255,255,0.88); }
+.btn-dark { background: var(--black); color: var(--white); border-color: var(--black); }
+.btn-dark:hover { background: #1a1a1a; }
+.btn-rose { background: var(--rose-mid); color: var(--white); border-color: var(--rose-mid); }
+.btn-rose:hover { background: var(--rose-dark); border-color: var(--rose-dark); }
+.btn-ghost-light { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.5); }
+.btn-ghost-light:hover { background: rgba(255,255,255,0.08); border-color: var(--white); }
+
+/* ── RULES ───────────────────────────────── */
+.rr-short { display: inline-block; width: 36px; height: 1px; background: var(--rose-mid); }
+
+/* ══════════════════════════════════════════ */
+/* HEADER                                     */
+/* ══════════════════════════════════════════ */
+#header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--gutter);
+  height: 76px;
+  transition: background 320ms var(--ease), border-color 320ms var(--ease), backdrop-filter 320ms var(--ease);
+}
+#header.hero-zone { background: transparent; }
+#header.scrolled {
+  background: rgba(10,10,10,0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+.h-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.h-logo img {
+  height: 24px;
+  width: auto;
+  display: block;
+  filter: invert(1);
+}
+#header.hero-zone .h-logo img { filter: invert(1); }
+#header.scrolled .h-logo img { filter: invert(1); }
+.h-nav {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 4px;
+}
+.h-nav a {
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  padding: 8px 16px;
+  opacity: 0.85;
+  transition: opacity 200ms var(--ease);
+}
+.h-nav a:hover { opacity: 1; }
+.h-nav .sep { color: var(--rose-mid); font-size: 9px; opacity: 0.6; }
+.h-cta {
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 11px 22px; border-radius: 999px;
+  background: var(--white); color: var(--black);
+  text-decoration: none;
+  transition: background 200ms var(--ease);
+}
+.h-cta:hover { background: rgba(255,255,255,0.85); }
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: var(--white);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── HERO — campaign visual anchor ─────────── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  background: #000000;
+  overflow: hidden;
+}
+.hero-stage {
+  position: relative;
+  min-height: 100vh;
+}
+.hero-image-bg {
+  position: absolute; inset: 0;
+  z-index: 1;
+}
+.hero-image-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+}
+.hero-rose-edge {
+  position: absolute;
+  left: 0; top: 25%; bottom: -10%;
+  width: 36%;
+  background: radial-gradient(ellipse at 0% 55%, rgba(212,165,168,0.55) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-vignette {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.1) 65%, transparent 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+.hero-bottom-shade {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 30%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; align-items: center;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+.hero-overlay-inner {
+  max-width: 640px;
+  pointer-events: auto;
+}
+.hero-since {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.hero-since .label {
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--rose-light);
+}
+.hero-headline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(48px, 6.5vw, 92px);
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  margin-bottom: 32px;
+  transition: opacity 600ms var(--ease);
+}
+.hero-stacked .line { display: block; }
+.hero-rose-bar {
+  width: 64px; height: 2px;
+  background: var(--rose-light);
+  margin-bottom: 28px;
+}
+.hero-sub {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--white);
+  margin-bottom: 8px;
+  max-width: 360px;
+}
+.hero-sub .dim {
+  display: block;
+  color: var(--stone-soft);
+  margin-top: 6px;
+}
+.hero-cta-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 32px;
+}
+.hero-21free {
+  display: inline-flex; align-items: center; gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.hero-21free .item {
+  font-family: var(--sans);
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--stone-soft);
+}
+.hero-21free .dot { color: var(--rose-mid); font-size: 5px; }
+.hero-bottom-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; z-index: 6;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--gutter) 32px;
+}
+.hero-counter {
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--rose-light);
+}
+.hero-counter .total { color: var(--stone-soft); }
+.hero-dots {
+  display: flex; gap: 10px;
+}
+.hero-dot {
+  width: 32px; height: 2px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 260ms var(--ease);
+}
+.hero-dot.active { background: var(--rose-light); }
+.hero-state-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rose-light);
+  transition: opacity 500ms var(--ease);
+}
+
+/* ══════════════════════════════════════════ */
+/* HERITAGE LINEAGE — replaces multilingual   */
+/* ══════════════════════════════════════════ */
+#lineage {
+  background: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+#lineage::before {
+  content: '';
+  position: absolute;
+  left: -120px; top: 30%;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(212,165,168,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.lineage-inner { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
+.lineage-eyebrow { color: var(--rose-light); margin-bottom: 28px; display: block; }
+.lineage-headline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(40px, 5.4vw, 72px);
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.lineage-bar {
+  width: 64px; height: 2px;
+  background: var(--rose-light);
+  margin-bottom: 64px;
+}
+.lineage-rows {
+  border-top: 1px solid var(--rose-line);
+}
+.lineage-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+.lineage-year {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 40px);
+  color: var(--rose-light);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.lineage-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--white);
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.lineage-body p {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--stone-soft);
+}
+
+/* ══════════════════════════════════════════ */
+/* PROOF STRIP — 3 heritage facts             */
+/* ══════════════════════════════════════════ */
+#proof {
+  background: var(--black);
+  padding: 56px var(--gutter);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.proof-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap: 0;
+  align-items: center;
+}
+.proof-col { padding: 0 56px; text-align: center; }
+.proof-col:first-child { padding-left: 0; }
+.proof-col:last-child  { padding-right: 0; }
+.proof-rule { width: 1px; height: 48px; background: var(--rose-line); }
+.proof-num {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 38px);
+  color: var(--rose-light);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.proof-text {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--stone-soft);
+  line-height: 1.55;
+}
+
+/* ══════════════════════════════════════════ */
+/* STORY — Heritage vignette                  */
+/* ══════════════════════════════════════════ */
+#story {
+  background: var(--whisper);
+  color: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+}
+.story-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(56px, 8vw, 128px);
+  align-items: center;
+}
+.story-img-placeholder {
+  aspect-ratio: 4/5;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(179,130,133,0.4) 0%, transparent 55%),
+    linear-gradient(155deg, #d4a5a8 0%, #7a4a4e 100%);
+  padding: 32px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative;
+}
+.story-img-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+.story-img-tag {
+  position: relative; z-index: 1;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+.story-img-caption {
+  position: relative; z-index: 1;
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--white);
+  line-height: 1.4;
+  max-width: 80%;
+}
+.story-img-caption .pending {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+}
+.story-eyebrow { color: var(--rose-mid); margin-bottom: 24px; display: block; }
+.story-heading {
+  font-size: clamp(36px, 4.6vw, 64px);
+  color: var(--black);
+  max-width: 16ch;
+  margin-bottom: 32px;
+}
+.story-body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(45,45,45,0.85);
+  margin-bottom: 32px;
+  max-width: 50ch;
+}
+.story-body .hl { color: var(--rose-dark); font-weight: 700; }
+.story-link {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rose-mid);
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.story-link:hover { color: var(--rose-dark); border-color: var(--rose-dark); }
+
+/* ══════════════════════════════════════════ */
+/* PERFORMANCE — values vignette              */
+/* ══════════════════════════════════════════ */
+#performance {
+  background: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+  text-align: center;
+}
+.perf-inner { max-width: 1080px; margin: 0 auto; }
+.perf-eyebrow { color: var(--rose-mid); margin-bottom: 56px; display: block; }
+.perf-list {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(28px, 4.5vw, 56px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--white);
+}
+.perf-list span {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  margin-bottom: 14px;
+}
+.perf-list span.in { opacity: 1; transform: translateY(0); }
+.perf-list span:nth-child(2) { transition-delay: 100ms; }
+.perf-list span:nth-child(3) { transition-delay: 200ms; }
+.perf-list span:nth-child(4) { transition-delay: 300ms; }
+.perf-list span:last-child { color: var(--rose-light); }
+
+/* ══════════════════════════════════════════ */
+/* COLLECTION — three Day-1 products (no bottles) */
+/* ══════════════════════════════════════════ */
+#collection {
+  background: var(--whisper);
+  color: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+}
+.collection-head {
+  max-width: var(--max); margin: 0 auto 72px;
+  text-align: center;
+}
+.collection-head .eyebrow { color: var(--rose-mid); margin-bottom: 18px; display: inline-block; }
+.collection-head h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(36px, 4.6vw, 56px);
+  letter-spacing: -0.025em;
+  color: var(--black);
+  line-height: 1.05;
+}
+.collection-grid {
+  max-width: 1040px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: stretch;
+}
+.product-card {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
+}
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--rose-line); }
+.product-card.featured {
+  background: linear-gradient(160deg, #f8eaeb 0%, #ffffff 100%);
+  border-color: var(--rose-line);
+}
+.product-ribbon {
+  position: absolute; top: 22px; right: -42px;
+  background: var(--rose-mid); color: var(--white);
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 50px;
+  transform: rotate(35deg);
+  z-index: 3;
+}
+
+/* Product visual — real product imagery (mini), typographic for the rest */
+.product-visual {
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.product-visual.foundation {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(179,130,133,0.16) 0%, transparent 60%),
+    linear-gradient(155deg, #1a1010 0%, #0a0a0a 100%);
+  padding: 28px;
+}
+.product-visual.foundation img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.product-visual.powder {
+  background:
+    radial-gradient(circle at 70% 50%, rgba(122,74,78,0.16) 0%, transparent 60%),
+    linear-gradient(155deg, #fff 0%, #f0e8e9 100%);
+}
+.product-visual.sampler {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212,165,168,0.25) 0%, transparent 65%),
+    linear-gradient(155deg, #ffffff 0%, #f8eaeb 100%);
+}
+.product-visual-mark {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(48px, 5vw, 80px);
+  color: var(--rose-mid);
+  opacity: 0.18;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.product-visual-shades {
+  display: flex; gap: 8px;
+}
+.product-visual-shades .swatch {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.product-body { padding: 28px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+.product-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rose-mid);
+  margin-bottom: 10px;
+}
+.product-name {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.product-name.featured { font-size: 26px; }
+.product-desc {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  color: rgba(45,45,45,0.7);
+  line-height: 1.55;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.product-bottom {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
+.product-price {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--black);
+}
+
+/* ══════════════════════════════════════════ */
+/* BE FIRST — Sold-out-since-the-70s framing  */
+/* ══════════════════════════════════════════ */
+#be-first {
+  background: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+#be-first::before {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(179,130,133,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.bf-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(56px, 8vw, 128px);
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.bf-eyebrow { color: var(--rose-mid); margin-bottom: 24px; display: block; }
+.bf-headline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(40px, 5.2vw, 72px);
+  letter-spacing: -0.03em;
+  color: var(--white);
+  line-height: 1.0;
+  margin-bottom: 28px;
+  max-width: 14ch;
+}
+.bf-headline .rose { color: var(--rose-light); }
+.bf-body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--stone-soft);
+  margin-bottom: 32px;
+  max-width: 42ch;
+}
+.bf-email-row {
+  display: flex; max-width: 460px;
+  margin-bottom: 16px;
+}
+.bf-email-row input {
+  flex: 1; padding: 13px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-right: none;
+  font-family: var(--sans);
+  font-weight: 500; font-size: 13px;
+  color: var(--white);
+  border-radius: 999px 0 0 999px;
+  outline: none;
+}
+.bf-email-row input::placeholder { color: rgba(255,255,255,0.4); }
+.bf-email-row button {
+  padding: 13px 24px;
+  background: var(--white); color: var(--black);
+  border: 1px solid var(--white);
+  border-radius: 0 999px 999px 0;
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Right column — real mini bottle hero photo */
+.bf-flag {
+  position: relative;
+  background: linear-gradient(155deg, #2a1a1c 0%, #0a0a0a 100%);
+  border: 1px solid var(--rose-line);
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.bf-flag-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.bf-flag-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0.75) 100%);
+}
+.bf-flag-content {
+  position: relative; z-index: 2;
+  margin-top: auto;
+  padding: 40px 36px;
+  text-align: left;
+}
+.bf-flag-eyebrow {
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--rose-light);
+  margin-bottom: 14px;
+}
+.bf-flag-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 36px);
+  color: var(--white);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+.bf-flag-since {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 64px;
+  color: var(--white);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.bf-flag-sub {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--rose-light);
+  margin-top: 16px;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════════ */
+/* PRESS — three pull-quotes                  */
+/* ══════════════════════════════════════════ */
+#press {
+  background: var(--whisper);
+  color: var(--black);
+  padding: clamp(96px, 11vw, 160px) var(--gutter);
+}
+.press-head {
+  max-width: var(--max); margin: 0 auto 64px;
+  text-align: center;
+}
+.press-head .eyebrow { color: var(--rose-mid); margin-bottom: 18px; display: inline-block; }
+.press-head h2 {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 42px);
+  letter-spacing: -0.02em;
+  color: var(--black);
+  line-height: 1.15;
+}
+.press-grid {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(48px, 6vw, 80px);
+}
+.press-card { text-align: left; }
+.press-mark {
+  font-family: var(--sans);
+  font-style: italic; font-weight: 400;
+  font-size: 56px;
+  color: var(--rose-mid);
+  line-height: 0.6;
+  margin-bottom: 20px;
+  display: block;
+}
+.press-text {
+  font-family: var(--sans);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(18px, 1.6vw, 20px);
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+}
+.press-attr {
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-dark);
+}
+
+/* ══════════════════════════════════════════ */
+/* CASPER PARALLAX FOOTER                     */
+/* ══════════════════════════════════════════ */
+#footer-stage {
+  position: relative;
+  min-height: 90vh;
+  overflow: hidden;
+  background: var(--black);
+}
+.footer-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 120%;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(179,130,133,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 65%, rgba(122,74,78,0.22) 0%, transparent 55%),
+    linear-gradient(180deg, #1a0e10 0%, #0a0a0a 100%);
+  transform: translateY(0);
+  will-change: transform;
+}
+.footer-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.95) 95%);
+  pointer-events: none;
+}
+.footer-content {
+  position: relative; z-index: 3;
+  min-height: 90vh;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: clamp(80px, 10vw, 140px) var(--gutter) 36px;
+}
+.footer-hero {
+  text-align: center;
+  padding-top: clamp(40px, 6vw, 72px);
+}
+.footer-since-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-bottom: 36px;
+}
+.footer-since-badge .line { width: 36px; height: 1px; background: var(--rose-mid); }
+.footer-since-badge .text {
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--rose-light);
+}
+.footer-tagline {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(36px, 6.5vw, 96px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--white);
+  max-width: 18ch;
+  margin: 0 auto;
+}
+.footer-base {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 36px;
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+  max-width: var(--max);
+  margin-left: auto; margin-right: auto;
+  width: 100%;
+}
+.footer-brand .name {
+  display: inline-block;
+}
+.footer-brand .name img {
+  height: 88px;
+  width: auto;
+  display: block;
+}
+.footer-brand .legal {
+  font-family: var(--sans);
+  font-weight: 500; font-size: 11px;
+  line-height: 1.55;
+  color: var(--stone-dim);
+  margin-top: 12px;
+  max-width: 32ch;
+}
+.footer-col-title {
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-light);
+  margin-bottom: 18px;
+}
+.footer-col-list { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-list a {
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 500;
+  color: var(--stone-soft);
+  text-decoration: none;
+  transition: color 200ms var(--ease);
+}
+.footer-col-list a:hover { color: var(--white); }
+.footer-copy {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--stone-dim);
+  margin-top: 36px;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════ */
+/* RESPONSIVE                                 */
+/* ══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .h-nav { display: none; }
+  .menu-toggle { display: inline-flex; }
+}
+@media (max-width: 768px) {
+  .hero-panels { grid-template-columns: 1fr; gap: 0; }
+  .hero-panel:nth-child(2), .hero-panel:nth-child(3) { display: none; }
+  .hero-panel-tag, .hero-panel-caption { display: none; }
+  .hero-bottom-bar { flex-direction: column; gap: 12px; padding: 0 24px 24px; align-items: flex-start; }
+  .ml-display, .lineage-row { font-size: 28px; gap: 14px; }
+  .lineage-row { grid-template-columns: 1fr; gap: 8px; }
+  .proof-inner { grid-template-columns: 1fr; gap: 28px; }
+  .proof-rule { display: none; }
+  .proof-col { padding: 0; }
+  .story-inner { grid-template-columns: 1fr; gap: 40px; }
+  .collection-grid { grid-template-columns: 1fr; }
+  .bf-inner { grid-template-columns: 1fr; gap: 40px; }
+  .press-grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer-base { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ════════════════════════════════════════════════ */
+/* PACKAGE MOCKUP — recreated from real artwork     */
+/* ════════════════════════════════════════════════ */
+.pkg-stage {
+  background: radial-gradient(ellipse at 50% 50%, #1a1a1a 0%, #050505 70%);
+  padding: clamp(64px, 9vw, 140px) clamp(24px, 6vw, 96px);
+  position: relative;
+  overflow: hidden;
+}
+.pkg-stage::before {
+  content: '';
+  position: absolute;
+  left: -120px; top: 20%;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(212,181,176,0.16) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pkg-stage::after {
+  content: '';
+  position: absolute;
+  right: -80px; bottom: -80px;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(139,90,93,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.pkg-grid {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+.pkg-grid.single { grid-template-columns: 1fr; max-width: 600px; }
+
+/* The box — matte black with subtle paper texture via gradient */
+.pkg-box {
+  position: relative;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #1c1c1c 0%, #0a0a0a 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    0 10px 24px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  padding: 48px 36px;
+  aspect-ratio: 3 / 4;
+  display: flex; flex-direction: column; justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.pkg-box.with-rotate {
+  transform: rotate(-3deg);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pkg-box.with-rotate:hover { transform: rotate(0deg); }
+
+/* Silver foil effect — used for all type on the box */
+.pkg-foil {
+  color: transparent;
+  background-image: linear-gradient(135deg,
+    #c8c8c8 0%,
+    #f0f0f0 25%,
+    #a8a8a8 50%,
+    #e8e8e8 75%,
+    #b0b0b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+.pkg-logo {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin-bottom: 6px;
+}
+.pkg-logo sup {
+  font-size: 0.32em;
+  vertical-align: super;
+  font-weight: 500;
+}
+.pkg-sub {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  line-height: 1.25;
+}
+
+.pkg-tag-block {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.pkg-tag {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+.pkg-tag-rule {
+  width: 64px; height: 1px;
+  background: linear-gradient(90deg, transparent, #b8b8b8 50%, transparent);
+  opacity: 0.7;
+}
+
+/* Side panel — 21-free icons */
+.pkg-side {
+  position: relative;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #1a1a1a 0%, #060606 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    0 10px 24px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  aspect-ratio: 1 / 4;
+  max-width: 110px;
+  margin: 0 auto;
+  padding: 28px 0;
+  display: flex; flex-direction: column; justify-content: space-around;
+  align-items: center;
+}
+.pkg-icon-row { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pkg-icon {
+  width: 28px; height: 28px;
+  stroke: #b8b8b8; fill: none; stroke-width: 1.4;
+  opacity: 0.85;
+}
+.pkg-icon-label {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  text-align: center;
+}
+.pkg-21 {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Open-box scene — shows the bottle inside */
+.pkg-open {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 30%, #2a2a2a 0%, #0a0a0a 75%);
+  border-radius: 6px;
+  aspect-ratio: 4 / 3;
+  padding: 28px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    inset 0 0 60px rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.pkg-open::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 80%);
+  border-radius: 6px 6px 0 0;
+  pointer-events: none;
+}
+.pkg-open img {
+  max-height: 80%; max-width: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+}
+
+/* Right-side intro copy beside packaging */
+.pkg-copy {}
+.pkg-copy .eyebrow {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #d4b5b0;
+  margin-bottom: 24px; display: block;
+}
+.pkg-copy h2 {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #fafafa;
+  margin-bottom: 22px;
+}
+.pkg-copy .lead {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500; font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  max-width: 44ch;
+}
+.pkg-copy .rose-bar {
+  display: block; width: 56px; height: 2px;
+  background: #d4b5b0; margin: 0 0 24px;
+}
+.pkg-copy .meta {
+  display: grid; grid-template-columns: auto auto; gap: 8px 28px;
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600; font-size: 12px;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pkg-copy .meta span:nth-child(odd) { color: #d4b5b0; font-weight: 700; }
+
+/* Two-box display — closed front and side panels */
+.pkg-pair {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* Moody product photo — cinematic dark gradient backdrop */
+.pkg-moody {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.7);
+}
+.pkg-moody img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pkg-moody:hover img { transform: scale(1.03); }
+.pkg-moody-grade {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.04) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(10,10,10,0.0) 60%, rgba(10,10,10,0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.pkg-moody-label {
+  position: absolute;
+  bottom: 28px; left: 28px;
+  z-index: 3;
+  display: flex; align-items: center; gap: 14px;
+}
+.pkg-moody-label .vrule {
+  width: 1px; height: 28px;
+  background: rgba(212,181,176,0.7);
+}
+.pkg-moody-label .text {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600; font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 768px) {
+  .pkg-grid { grid-template-columns: 1fr; gap: 40px; }
+  .pkg-pair { gap: 10px; }
+  .pkg-box { padding: 36px 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════ -->
+<header id="header" class="hero-zone">
+  <a href="/" class="h-logo" aria-label="Astarté"><img src="assets/logo-transparent.png" alt="Astarté" /></a>
+  <nav class="h-nav">
+    <a href="/origins">Origins</a>
+    <span class="sep">·</span>
+    <a href="/order-samples">Order Samples</a>
+  </nav>
+  <a href="/get-your-mini" class="h-cta">Get Your Mini</a>
+  <button class="menu-toggle">Menu</button>
+</header>
+
+<!-- ══ HERO — campaign visual anchor ══ -->
+<section id="hero">
+  <div class="hero-stage">
+
+    <!-- Campaign hero image: woman + minis -->
+    <div class="hero-image-bg">
+      <img src="assets/campaign-hero.jpg" alt="Astarté Signature Foundation minis and editorial portrait" />
+    </div>
+    <div class="hero-rose-edge"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-bottom-shade"></div>
+
+    <!-- Left-anchored overlay — headline + supporting -->
+    <div class="hero-overlay">
+      <div class="hero-overlay-inner">
+        <div class="hero-since">
+          <span class="label">Since 1970</span>
+        </div>
+        <h1 class="hero-headline hero-stacked" id="hero-headline">
+          <span class="line">Heritage.</span>
+          <span class="line">Recognition.</span>
+          <span class="line">Celebration.</span>
+        </h1>
+        <div class="hero-rose-bar"></div>
+        <p class="hero-sub">
+          Astarté is the first fully inclusive makeup line. Period.
+          <span class="dim">Founded 1970. Returning 2026.</span>
+        </p>
+        <div class="hero-cta-row">
+          <a href="/order-samples" class="btn btn-rose">Order Samples — $12</a>
+          <a href="/get-your-mini" class="btn btn-ghost-light">Get Your Mini — $30</a>
+        </div>
+        <div class="hero-21free">
+          <span class="item">21-free</span>
+          <span class="dot">●</span>
+          <span class="item">Clean · Vegan · Cruelty-free</span>
+          <span class="dot">●</span>
+          <span class="item">Oil-, talc-, fragrance-free</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar — counter, dots, state tag -->
+    <div class="hero-bottom-bar">
+      <div class="hero-counter"><span id="counter-current">01</span> <span class="total">/ 04</span></div>
+      <div class="hero-state-tag" id="state-tag">Heritage · Recognition · Celebration</div>
+      <div class="hero-dots">
+        <button class="hero-dot active" data-dot="0" aria-label="Slide 1"></button>
+        <button class="hero-dot" data-dot="1" aria-label="Slide 2"></button>
+        <button class="hero-dot" data-dot="2" aria-label="Slide 3"></button>
+        <button class="hero-dot" data-dot="3" aria-label="Slide 4"></button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ══ PRODUCT MOMENT ══ -->
+<section class="pkg-stage">
+  <div class="pkg-grid">
+
+    <div class="pkg-copy">
+      <span class="eyebrow">15ml · First access</span>
+      <h2>The mini.<br>Available now.</h2>
+      <span class="rose-bar"></span>
+      <p class="lead">A weightless second-skin formula in a quiet matte vessel. 23 shades, all Phase 1. Ships this week.</p>
+      <div class="meta">
+        <span>Size</span><span>0.5 fl oz / 15 ml</span>
+        <span>Shades</span><span>23 · light to deepest</span>
+        <span>Formula</span><span>21-free · vegan · cruelty-free</span>
+        <span>Finish</span><span>Second skin · weightless</span>
+      </div>
+      <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/order-samples" class="btn btn-rose">Order Samples — $12</a>
+        <a href="/get-your-mini" class="btn btn-ghost-light">Get Your Mini — $30</a>
+      </div>
+    </div>
+
+    <div class="pkg-moody">
+      <img src="assets/pkg-hero-2.jpg" alt="Astarté Signature Foundation mini in its package" />
+      <div class="pkg-moody-label">
+        <span class="vrule"></span>
+        <span class="text">Signature Foundation · 15 ml</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ EDITORIAL — three women, real campaign moments ══ -->
+<section id="editorial-women">
+  <style>
+    #editorial-women {
+      background: var(--black);
+      padding: clamp(80px, 10vw, 144px) var(--gutter);
+      position: relative;
+    }
+    #editorial-women .ew-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+    #editorial-women .ew-head {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px;
+      align-items: end; margin-bottom: 56px;
+    }
+    #editorial-women .ew-head .title {
+      font-family: 'Albert Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      max-width: 14ch;
+    }
+    #editorial-women .ew-head .body {
+      font-family: 'Albert Sans', sans-serif;
+      font-weight: 500;
+      font-size: 16px; line-height: 1.5;
+      color: rgba(255,255,255,0.72);
+      max-width: 56ch;
+      padding-bottom: 6px;
+    }
+    #editorial-women .ew-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    #editorial-women .ew-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #1a1414;
+      cursor: pointer;
+      transition: transform 700ms cubic-bezier(0.22,1,0.36,1);
+    }
+    #editorial-women .ew-card:nth-child(2) { transform: translateY(48px); }
+    #editorial-women .ew-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1200ms cubic-bezier(0.22,1,0.36,1);
+    }
+    #editorial-women .ew-card:hover img { transform: scale(1.05); }
+    #editorial-women .ew-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%);
+      pointer-events: none;
+    }
+    #editorial-women .ew-card .cap {
+      position: absolute; left: 24px; right: 24px; bottom: 28px; z-index: 2;
+    }
+    #editorial-women .ew-card .cap .vrule {
+      width: 1px; height: 28px; background: var(--rose-light); margin-bottom: 14px;
+    }
+    #editorial-women .ew-card .cap .name {
+      font-family: 'Albert Sans', sans-serif;
+      font-weight: 700; font-size: 18px;
+      letter-spacing: -0.01em; color: var(--white);
+      margin-bottom: 6px;
+    }
+    #editorial-women .ew-card .cap .role {
+      font-family: 'Albert Sans', sans-serif;
+      font-weight: 500; font-size: 11px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+    @media (max-width: 768px) {
+      #editorial-women .ew-head { grid-template-columns: 1fr; gap: 24px; }
+      #editorial-women .ew-grid { grid-template-columns: 1fr; }
+      #editorial-women .ew-card:nth-child(2) { transform: none; }
+    }
+  </style>
+  <div class="ew-inner">
+    <div class="ew-head">
+      <h2 class="title">Real moments.<br>Real skin.</h2>
+      <p class="body">Three women, three lives. The same skin promise across them — clean performance, second-skin finish, every undertone.</p>
+    </div>
+    <div class="ew-grid">
+      <div class="ew-card">
+        <img src="assets/woman-latina-cafe.jpg" alt="Latina woman at a sunlit café" />
+        <div class="cap">
+          <div class="vrule"></div>
+          <div class="name">A social moment.</div>
+          <div class="role">Cafe · warm light · with friends</div>
+        </div>
+      </div>
+      <div class="ew-card">
+        <img src="assets/woman-asian-shade.jpg" alt="Woman applying foundation in natural light" />
+        <div class="cap">
+          <div class="vrule"></div>
+          <div class="name">The shade lands.</div>
+          <div class="role">Daylight · application · happy</div>
+        </div>
+      </div>
+      <div class="ew-card">
+        <img src="assets/woman-black-street.jpg" alt="Black woman walking through a city street" />
+        <div class="cap">
+          <div class="vrule"></div>
+          <div class="name">Real-life wear.</div>
+          <div class="role">Street · cinematic · honest</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MULTILINGUAL REMOVED — replaced with HERITAGE LINEAGE ══ -->
+<section id="lineage">
+  <div class="lineage-inner">
+    <div class="eyebrow lineage-eyebrow">Origins</div>
+    <h2 class="h-display lineage-headline">The first fully<br>inclusive makeup line.<br>Period.</h2>
+    <div class="rr-short lineage-bar"></div>
+
+    <div class="lineage-rows">
+      <div class="lineage-row">
+        <div class="lineage-year">1970</div>
+        <div class="lineage-body">
+          <div class="lineage-title">Mari Aldin founds Astarté.</div>
+          <p>The first fully inclusive makeup line. Period. Pat Evans is the original face; Ruby Dee delivers the 1970 voice-over.</p>
+        </div>
+      </div>
+      <div class="lineage-row">
+        <div class="lineage-year">1970s</div>
+        <div class="lineage-body">
+          <div class="lineage-title">Outsold Revlon at twice the price.</div>
+          <p>Stocked in U.S. military PXs. Word of mouth, generation to generation.</p>
+        </div>
+      </div>
+      <div class="lineage-row">
+        <div class="lineage-year">1993</div>
+        <div class="lineage-body">
+          <div class="lineage-title">Featured in Poetic Justice.</div>
+          <p>A cultural artifact without a press strategy. Cited in the textbook of record.</p>
+        </div>
+      </div>
+      <div class="lineage-row">
+        <div class="lineage-year">2026</div>
+        <div class="lineage-body">
+          <div class="lineage-title">Astarté returns. Reformulated.</div>
+          <p>Performance is the same. 23 shades. 15ml mini available now.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROOF STRIP ════════════════════════════ -->
+<section id="proof">
+  <div class="proof-inner">
+    <div class="proof-col">
+      <div class="proof-num">1970</div>
+      <div class="proof-text">First fully inclusive<br>makeup line. Period.</div>
+    </div>
+    <span class="proof-rule"></span>
+    <div class="proof-col">
+      <div class="proof-num">23</div>
+      <div class="proof-text">Shades with Color-Complementing<br>Technology®. Reformulated 2026.</div>
+    </div>
+    <span class="proof-rule"></span>
+    <div class="proof-col">
+      <div class="proof-num">21</div>
+      <div class="proof-text">21-free. Oil-, talc-, fragrance-,<br>paraben-free. Hypoallergenic.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STORY — Heritage vignette (with Mari Aldin placeholder) ══ -->
+<section id="story">
+  <div class="story-inner">
+    <div class="story-img-placeholder">
+      <div class="story-img-tag">Heritage moment</div>
+      <div class="story-img-caption">
+        She has waited fifty years to be recognized.
+        <span class="pending">Editorial portrait · Mari Aldin photography pending</span>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow story-eyebrow">Since 1970 · The original returns</span>
+      <h2 class="h-display story-heading">Fifty years ahead of the conversation.</h2>
+      <p class="body-text story-body">Astarté was the <span class="hl">first fully inclusive makeup line. Period.</span> Founded in 1970 by Mari Aldin — 47 years before the industry caught up. Reformulated for 2026, performance-tuned, and built for the customer who has waited decades to be matched, not approximated.</p>
+      <a href="/origins" class="story-link">Read the full story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PERFORMANCE — values list ═══════════════ -->
+<section id="performance">
+  <div class="perf-inner">
+    <div class="eyebrow perf-eyebrow">Performance is the same</div>
+    <div class="perf-list" id="perf-list">
+      <span>Clean. Vegan. Cruelty-free.</span>
+      <span>Oil-free. Fragrance-free. Paraben-free.</span>
+      <span>Lightweight. Weightless.</span>
+      <span>Second skin makeup.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COLLECTION — Phase 1 launch: Mini + Sampler only ══ -->
+<section id="collection">
+  <div class="collection-head">
+    <span class="eyebrow">The collection · Phase 1</span>
+    <h2 style="margin-top:14px;">Two ways to begin.</h2>
+    <p style="font-family:var(--sans);font-weight:500;font-size:13px;line-height:1.55;color:var(--stone);max-width:480px;margin:18px auto 0;letter-spacing:-0.005em;">The Foundation Full-Size and Pressed Powder return in Phase 2, three to four months from now.</p>
+  </div>
+  <div class="collection-grid">
+
+    <div class="product-card">
+      <div class="product-visual foundation">
+        <img src="assets/pkg-hero-1.jpg" alt="Astarté Signature Foundation 15ml in its package" style="width:100%;height:100%;object-fit:cover;padding:0;" />
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Foundation · 15ml first access</div>
+        <div class="product-name">Signature Foundation</div>
+        <div class="product-desc">23 shades, Color-Complementing Technology®. Weightless, clean, second skin.</div>
+        <div class="product-bottom">
+          <span class="product-price">$30</span>
+          <a href="/get-your-mini" class="btn btn-dark" style="padding:11px 20px;font-size:11px;">Get Your Mini</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card featured">
+      <div class="product-ribbon">Start here</div>
+      <div class="product-visual sampler">
+        <div class="product-visual-shades">
+          <div class="swatch" style="background:#e8c9a8;"></div>
+          <div class="swatch" style="background:#c89878;"></div>
+          <div class="swatch" style="background:#8a6048;"></div>
+          <div class="swatch" style="background:#4a3028;"></div>
+        </div>
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Sampler · 4 shades · ships free</div>
+        <div class="product-name featured">Find your match.</div>
+        <div class="product-desc">Four shades to compare on your own skin. Pick your match — then commit.</div>
+        <div class="product-bottom">
+          <span class="product-price">$12</span>
+          <a href="/order-samples" class="btn btn-rose" style="padding:11px 20px;font-size:11px;">Order Samples</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ BE FIRST — Sold-out reframe ════════════ -->
+<section id="be-first">
+  <div class="bf-inner">
+    <div>
+      <span class="eyebrow bf-eyebrow">Be first</span>
+      <h2 class="bf-headline">Sold out since the 70s. <span class="rose">Back now.</span></h2>
+      <p class="bf-body">Get the formula in 15ml first access — performance is the same, weight is lighter, range is broader. Full size returns later this year.</p>
+      <div class="bf-email-row">
+        <input type="email" placeholder="Your email address — be first to know" />
+        <button>Notify me</button>
+      </div>
+      <a href="/get-your-mini" class="btn btn-light" style="margin-top:16px;">Get Your Mini — $30</a>
+    </div>
+    <div class="bf-flag">
+      <img class="bf-flag-img" src="assets/pkg-hero-2.jpg" alt="Astarté Signature Foundation Mini 15ml in its package" />
+      <div class="bf-flag-shade"></div>
+      <div class="bf-flag-content">
+        <div class="bf-flag-eyebrow">15ml · First access</div>
+        <div class="bf-flag-title">The mini.<br>Available now.</div>
+        <div class="bf-flag-sub" style="font-style:normal;color:rgba(255,255,255,0.55);font-size:12px;font-weight:600;letter-spacing:0.06em;">23 shades. Ships this week.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRESS ═══════════════════════════════ -->
+<section id="press">
+  <div class="press-head">
+    <span class="eyebrow">Press · Cultural record</span>
+    <h2 style="margin-top:14px;">A pioneer, decades ahead.</h2>
+  </div>
+  <div class="press-grid">
+    <div class="press-card">
+      <span class="press-mark">"</span>
+      <div class="press-text">A pioneer of inclusive makeup, decades ahead of the conversation.</div>
+      <div class="press-attr">— Vogue Beauty</div>
+    </div>
+    <div class="press-card">
+      <span class="press-mark">"</span>
+      <div class="press-text">The formula remains technically unmatched. It doesn't sit on skin — it looks like skin.</div>
+      <div class="press-attr">— Allure</div>
+    </div>
+    <div class="press-card">
+      <span class="press-mark">"</span>
+      <div class="press-text">Astarté got to inclusive beauty 47 years before the industry caught up.</div>
+      <div class="press-attr">— Harper's Bazaar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CASPER PARALLAX FOOTER ═════════════ -->
+<section id="footer-stage">
+  <div class="footer-bg" id="footer-bg"></div>
+  <div class="footer-overlay"></div>
+  <div class="footer-content">
+
+    <div class="footer-hero">
+      <div class="footer-since-badge">
+        <span class="line"></span>
+        <span class="text">Since 1970</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="footer-tagline">Makeup that loves every skin tone.</h2>
+    </div>
+
+    <div class="footer-base">
+      <div class="footer-brand">
+        <div class="name"><img src="assets/logo-mark.png" alt="Astarté" /></div>
+        <div class="legal">Cosmetics that love every skin tone® — a registered trademark of Astarté Cosmetics, Inc.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Explore</div>
+        <div class="footer-col-list">
+          <a href="/origins">Origins</a>
+          <a href="/order-samples">Order Samples</a>
+          <a href="/get-your-mini">Get Your Mini</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-col-list">
+          <a href="#">Press enquiries</a>
+          <a href="#">Stockist enquiries</a>
+          <a href="#">Customer care</a>
+          <a href="#">Newsletter</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow</div>
+        <div class="footer-col-list">
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-copy">© 2026 Astarté Cosmetics · astartecosmetics.com</div>
+  </div>
+</section>
+
+<script>
+/* ── Header hero-zone vs scrolled ─────────── */
+const header = document.getElementById('header');
+const hero   = document.getElementById('hero');
+new IntersectionObserver((entries) => {
+  const inHero = entries[0].isIntersecting;
+  header.classList.toggle('hero-zone', inHero);
+  header.classList.toggle('scrolled', !inHero);
+}, { threshold: 0.05 }).observe(hero);
+
+/* ── Hero carousel — 4 locked rotations ────── */
+const HEADLINES = [
+  { stacked: ['Heritage.','Recognition.','Celebration.'], tag: 'Heritage · Recognition · Celebration' },
+  { stacked: ['Makeup that loves','every skin tone.'], tag: 'Start Here' },
+  { stacked: ['Clean performance.','Weightless.','Second skin.'], tag: 'Clean performance' },
+  { stacked: ['First fully','inclusive makeup','line. Period.'], tag: 'Since 1970' }
+];
+const headlineEl = document.getElementById('hero-headline');
+const stateTagEl = document.getElementById('state-tag');
+const counterEl  = document.getElementById('counter-current');
+const dotEls     = document.querySelectorAll('.hero-dot');
+let currentSlide = 0;
+let autoTimer = null;
+
+function showSlide(i) {
+  headlineEl.style.opacity = 0;
+  stateTagEl.style.opacity = 0;
+  setTimeout(() => {
+    headlineEl.innerHTML = HEADLINES[i].stacked.map(l => '<span class="line">' + l + '</span>').join('');
+    stateTagEl.textContent = HEADLINES[i].tag;
+    headlineEl.style.opacity = 1;
+    stateTagEl.style.opacity = 1;
+  }, 240);
+  counterEl.textContent = String(i + 1).padStart(2, '0');
+  dotEls.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  currentSlide = i;
+}
+function nextSlide() { showSlide((currentSlide + 1) % HEADLINES.length); }
+function startAuto() { stopAuto(); autoTimer = setInterval(nextSlide, 6500); }
+function stopAuto()  { if (autoTimer) clearInterval(autoTimer); }
+dotEls.forEach((d, i) => d.addEventListener('click', () => { showSlide(i); startAuto(); }));
+startAuto();
+
+/* ── Heritage lineage section — no JS needed (was multilingual) ─ */
+
+/* ── Performance list fade-in ────────────── */
+const perfSpans = document.querySelectorAll('#perf-list span');
+new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      perfSpans.forEach(s => s.classList.add('in'));
+    }
+  });
+}, { threshold: 0.3 }).observe(document.getElementById('performance'));
+
+/* ── Parallax footer ─────────────────────── */
+const footerBg = document.getElementById('footer-bg');
+const footerStage = document.getElementById('footer-stage');
+let parallaxTicking = false;
+function parallaxFooter() {
+  const rect = footerStage.getBoundingClientRect();
+  const vh = window.innerHeight;
+  if (rect.top < vh && rect.bottom > 0) {
+    const progress = (vh - rect.top) / (vh + rect.height);
+    const translate = (progress - 0.5) * 100;
+    footerBg.style.transform = 'translateY(' + translate + 'px)';
+  }
+  parallaxTicking = false;
+}
+window.addEventListener('scroll', () => {
+  if (!parallaxTicking) {
+    window.requestAnimationFrame(parallaxFooter);
+    parallaxTicking = true;
+  }
+}, { passive: true });
+parallaxFooter();
+</script>
+
+</body>
+</html>

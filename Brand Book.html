@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astarté — Brand Book V2 · May 14, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg">
+  <rect width="80" height="56" fill="#0a0a0a"/>
+  <text x="40" y="34" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">a</text>
+  <circle cx="64" cy="14" r="3" fill="#b38285"/>
+</svg>
+</template>
+<style>
+/* ── RESET ─────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Albert Sans', system-ui, sans-serif;
+  font-weight: 500;            /* V2: BODY MEDIUM */
+  font-size: 15.5px;
+  line-height: 1.45;           /* V2: TIGHTER per May 15 direction */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── V2 TOKENS ──────────────────────────────────── */
+:root {
+  /* Four-color palette — pink is TERTIARY */
+  --black:        #0f0f0f;      /* primary — dominant (working) */
+  --black-soft:   #2d2d2d;      /* secondary surface */
+  --white:        #fafafa;      /* whisper white (working) */
+  --whisper:      #f5f0f0;      /* inner-section soft white */
+
+  /* Stone Mid Gray — supporting (proposing two values for ratification) */
+  --stone-a:      #595959;      /* working stone */
+  --stone-b:      #6b6b6b;      /* alt warmer */
+  --stone:        #595959;
+
+  /* Dusty Rose gradient — tertiary, 3-shade set */
+  --rose-light:   #d4b5b0;
+  --rose-mid:     #b38285;      /* Mindy locked anchor */
+  --rose-dark:    #8b5a5d;
+  --rose-line:    rgba(179,130,133,0.55);
+  --rose-soft:    rgba(212,181,176,0.5);
+
+  /* Functional */
+  --line:         rgba(255,255,255,0.1);
+  --line-soft:    rgba(255,255,255,0.06);
+  --text-dim:     rgba(255,255,255,0.65);
+  --text-muted:   rgba(255,255,255,0.4);
+
+  --sans:         'Albert Sans', system-ui, sans-serif;
+  --gutter:       clamp(32px, 7vw, 112px);
+  --max:          1040px;
+  --ease:         cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── LAYOUT ──────────────────────────────────── */
+.section { padding: 112px var(--gutter); background: var(--black); }
+.section-stone { background: var(--black-soft); padding: 112px var(--gutter); }
+.section-light { background: var(--whisper); color: var(--black); padding: 112px var(--gutter); }
+.section-rose-wash { background: linear-gradient(135deg, #1a1010 0%, #0a0a0a 60%); padding: 112px var(--gutter); position: relative; }
+.section-rose-wash::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 80% 30%, rgba(179,130,133,0.18) 0%, transparent 50%);
+  pointer-events:none;
+}
+.inner { max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
+
+/* ── V2 TYPE HIERARCHY ──────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rose-mid);
+  margin-bottom: 28px;
+  display: block;
+}
+.eyebrow-rose-light { color: var(--rose-light); }
+.eyebrow-dark { color: var(--rose-dark); }
+
+h1.h1, .h1 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(52px, 7.5vw, 96px);
+  line-height: 0.95;                    /* tighter */
+  letter-spacing: -0.035em;
+  color: var(--white);
+}
+.h1-dark { color: var(--black); }
+
+h2.h2, .h2 {
+  font-family: var(--sans);
+  font-weight: 400;                     /* H2 Regular */
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+.h2-dark { color: var(--black); }
+
+h3.h3, .h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--white);
+}
+.h3-dark { color: var(--black); }
+
+.body-text {
+  font-family: var(--sans);
+  font-weight: 500;                     /* V2: Medium */
+  font-size: 15.5px;
+  line-height: 1.55;                    /* V2: tighter */
+  color: var(--text-dim);
+}
+.body-text-light { color: var(--black-soft); }
+.body-text-tight { line-height: 1.45; }
+
+.body-sb {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.tagline-italic {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 2.8vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* ── RULES ───────────────────────────────────── */
+.rose-rule { display: block; width: 100%; height: 1px; background: var(--rose-line); }
+.rose-rule-short { display: block; width: 40px; height: 1px; background: var(--rose-mid); }
+.rose-rule-mid { display: block; width: 96px; height: 1px; background: var(--rose-mid); }
+
+/* ── PAGE-MARKER ─────────────────────────────── */
+.page-mark {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+}
+.pm-num {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--rose-light);
+}
+.pm-dot { width: 6px; height: 6px; background: var(--rose-mid); border-radius: 50%; }
+.pm-cat {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.pm-cat-dark { color: rgba(45,45,45,0.6); }
+
+/* ── COVER ───────────────────────────────────── */
+#cover {
+  min-height: 100vh;
+  background: #000000;
+  position: relative;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  overflow: hidden;
+}
+#cover .cover-img-wrap {
+  position: relative;
+  background: #000000;
+  overflow: hidden;
+  order: 2;
+}
+#cover .cover-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+}
+#cover .cover-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+}
+#cover .cover-rose-edge {
+  position: absolute;
+  left: 0; top: 30%; bottom: 0;
+  width: 24%;
+  background: radial-gradient(ellipse at 0% 50%, rgba(212,165,168,0.55) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+#cover .cover-text {
+  order: 1;
+  position: relative;
+  padding: clamp(48px, 7vw, 96px);
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  z-index: 3;
+}
+.cover-meta-row {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cover-version {
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-light);
+}
+.cover-doc {
+  font-weight: 500; font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cover-mark-block {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 36px;
+  margin: 56px 0;
+}
+.cover-mark-img {
+  width: clamp(160px, 18vw, 220px);
+  height: auto;
+  display: block;
+}
+.cover-stack-headline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(48px, 6.5vw, 84px);
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--white);
+}
+.cover-stack-headline div { display: block; }
+.cover-rose-bar {
+  width: 64px; height: 2px;
+  background: var(--rose-light);
+  margin-top: 8px;
+}
+.cover-tagline {
+  font-weight: 500;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--white);
+  letter-spacing: -0.005em;
+  max-width: 380px;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.cover-tagline .dim {
+  display: block;
+  color: var(--stone-soft);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.cover-base {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.cover-base-col { display: flex; flex-direction: column; gap: 4px; }
+.cover-base-label {
+  font-weight: 700; font-size: 9px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-light);
+}
+.cover-base-value {
+  font-weight: 500; font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ── TOC ─────────────────────────────────────── */
+#toc {
+  background: var(--black);
+  padding: 80px var(--gutter);
+  border-top: 1px solid var(--line);
+}
+.toc-grid {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4px 56px;
+}
+.toc-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+.toc-num { font-weight: 700; font-size: 10px; letter-spacing: 0.18em; color: var(--rose-light); }
+.toc-title { font-weight: 500; font-size: 13px; color: var(--white); }
+.toc-page { font-weight: 500; font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; }
+
+/* ── COLOR SYSTEM (V2) ─────────────────────── */
+.color-section { margin-top: 56px; }
+.color-section + .color-section { margin-top: 56px; }
+.color-section-label {
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--rose-light);
+  margin-bottom: 4px;
+}
+.color-section-rank {
+  font-weight: 700; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--rose-mid);
+  margin-bottom: 18px;
+}
+.color-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.color-row.gradient { grid-template-columns: repeat(3, 1fr); }
+.color-card {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+}
+.color-chip { aspect-ratio: 1.5/1; }
+.color-meta { padding: 18px 20px; }
+.color-name { font-weight: 700; font-size: 16px; color: var(--white); letter-spacing: -0.01em; margin-bottom: 4px; }
+.color-name-tag {
+  display: inline-block; margin-left: 8px;
+  font-weight: 500; font-size: 9px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--rose-mid);
+  padding: 2px 6px;
+  border: 1px solid var(--rose-line);
+  border-radius: 2px;
+}
+.color-name-tag.locked { color: var(--rose-light); border-color: var(--rose-soft); }
+.color-name-tag.tbd { color: rgba(255,255,255,0.5); border-color: var(--line); }
+.color-hex { font-family: 'Albert Sans', sans-serif; font-weight: 500; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 12px; }
+.color-use { font-weight: 500; font-size: 12.5px; line-height: 1.55; color: var(--text-dim); }
+
+.pink-rules-block {
+  margin-top: 32px;
+  border-top: 1px solid var(--rose-line);
+  border-bottom: 1px solid var(--rose-line);
+  padding: 28px 0;
+}
+.pink-rules-label {
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-mid); margin-bottom: 16px;
+}
+.pink-rules-list {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px;
+}
+.pink-rules-list li {
+  font-weight: 500; font-size: 13px;
+  line-height: 1.55; color: var(--text-dim);
+  display: flex; gap: 12px; align-items: baseline;
+}
+.pink-rules-list li::before {
+  content:''; flex-shrink: 0;
+  display: inline-block; width: 16px; height: 1px;
+  background: var(--rose-light); margin-top: 9px;
+}
+
+/* ── TYPOGRAPHY SPECIMEN ─────────────────────── */
+.type-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: baseline;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+.type-meta {
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--rose-light);
+}
+.type-meta-sub {
+  display: block; font-weight: 500; font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  text-transform: none;
+}
+.type-meta-warn {
+  display: block;
+  font-weight: 500; font-size: 10px;
+  color: var(--rose-light);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  text-transform: none;
+}
+.t-h1   { font-family: var(--sans); font-weight: 700; font-size: 52px; line-height: 0.95; letter-spacing: -0.035em; color: var(--white); }
+.t-h2   { font-family: var(--sans); font-weight: 400; font-size: 32px; line-height: 1.1;  letter-spacing: -0.02em;  color: var(--white); }
+.t-h3   { font-family: var(--sans); font-weight: 700; font-size: 18px; line-height: 1.25; color: var(--white); }
+.t-body { font-family: var(--sans); font-weight: 500; font-size: 16px; line-height: 1.55; color: var(--text-dim); }
+.t-sb   { font-family: var(--sans); font-weight: 600; font-size: 13px; line-height: 1.55; color: var(--white); }
+.t-eye  { font-family: var(--sans); font-weight: 500; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose-mid); }
+.t-ital { font-family: var(--sans); font-style: italic; font-weight: 400; font-size: 22px; color: var(--white); }
+
+/* ── BRAND THESIS ─────────────────────────── */
+.thesis-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 36px; }
+.thesis-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.thesis-num { font-weight: 700; font-size: 10px; letter-spacing: 0.22em; color: var(--rose-mid); }
+.thesis-name {
+  font-weight: 700; font-size: 22px;
+  color: var(--white); letter-spacing: -0.02em;
+}
+.thesis-body { font-weight: 500; font-size: 13.5px; color: var(--text-dim); line-height: 1.55; }
+
+/* ── PHRASE BANK ──────────────────────────── */
+.phrase-cluster { margin-top: 32px; }
+.phrase-cluster-label {
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-mid); margin-bottom: 14px;
+}
+.phrase-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px;
+}
+.phrase {
+  display: flex; gap: 14px; align-items: baseline;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+  font-weight: 500; font-size: 14px;
+  color: var(--white);
+  line-height: 1.5;
+}
+.phrase .num { color: var(--rose-light); font-weight: 700; font-size: 10px; min-width: 18px; padding-top: 3px; letter-spacing: 0.1em; }
+
+/* ── DO / DON'T ────────────────────────────── */
+.dodont {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-top: 32px;
+}
+.dodont-col {
+  border: 1px solid var(--line);
+  padding: 28px 28px;
+}
+.dodont-col h4 {
+  font-weight: 700; font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.dodont-col.do h4 { color: var(--rose-light); }
+.dodont-col.dont h4 { color: var(--rose-dark); }
+.dodont-col ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.dodont-col li {
+  font-weight: 500; font-size: 13.5px;
+  line-height: 1.55; color: var(--text-dim);
+  display: flex; gap: 10px; align-items: baseline;
+}
+.dodont-col li::before {
+  content:''; flex-shrink:0;
+  display: inline-block; width: 14px; height: 1px;
+  margin-top: 9px;
+}
+.dodont-col.do li::before { background: var(--rose-light); }
+.dodont-col.dont li::before { background: var(--rose-dark); }
+.dodont-col.dont strong, .dodont-col.do strong { color: var(--white); font-weight: 700; }
+
+/* ── PHOTOGRAPHY MAP ──────────────────────── */
+.photo-map { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 36px; }
+.photo-cell {
+  aspect-ratio: 3/4;
+  background: linear-gradient(155deg, #2a2020 0%, #0a0a0a 100%);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--line);
+  padding: 20px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.photo-cell::before {
+  content:''; position:absolute;
+  inset: -1px;
+  background: radial-gradient(circle at 30% 70%, rgba(179,130,133,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.photo-tag {
+  font-weight: 500; font-size: 9px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-light);
+  position: relative; z-index: 1;
+}
+.photo-caption {
+  font-weight: 500; font-size: 13px;
+  color: var(--white);
+  line-height: 1.35;
+  position: relative; z-index: 1;
+}
+
+/* ── REFERENCE GRID ────────────────────────── */
+.ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+.ref-card {
+  border: 1px solid var(--line);
+  padding: 24px 26px;
+}
+.ref-label {
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose-mid); margin-bottom: 8px;
+}
+.ref-name {
+  font-weight: 700; font-size: 16px;
+  color: var(--white); margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.ref-note {
+  font-weight: 500; font-size: 13px;
+  color: var(--text-dim); line-height: 1.5;
+}
+
+/* ── ALERT / OUT OF SCOPE ─────────────────── */
+.scope-list {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-top: 32px;
+}
+.scope-item {
+  display: flex; gap: 14px; align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  font-weight: 500; font-size: 14px;
+  color: var(--text-dim); line-height: 1.5;
+}
+.scope-item::before {
+  content:'✕';
+  flex-shrink: 0;
+  color: var(--rose-dark);
+  font-size: 10px;
+  font-weight: 700;
+  width: 14px;
+  letter-spacing: 0;
+  padding-top: 2px;
+}
+.scope-item strong { color: var(--white); font-weight: 700; }
+
+/* ── HIGHLIGHT CALLOUT ───────────────────── */
+.callout {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, rgba(122,74,78,0.25) 0%, rgba(45,45,45,0.6) 100%);
+  border: 1px solid var(--rose-line);
+}
+.callout-label {
+  font-weight: 700; font-size: 10px;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--rose-light); margin-bottom: 14px;
+}
+.callout-text {
+  font-weight: 500; font-size: 14.5px;
+  line-height: 1.6; color: var(--white);
+}
+.callout-text strong { color: var(--rose-light); font-weight: 700; }
+
+/* ── COLOPHON ────────────────────────────── */
+.colophon {
+  background: var(--black);
+  border-top: 1px solid var(--line);
+  padding: 56px var(--gutter);
+}
+.colophon-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 24px;
+}
+.colophon-mark { display: inline-block; }
+.colophon-mark img { height: 56px; width: auto; display: block; }
+.colophon-tag { font-style: italic; font-weight: 400; font-size: 13px; color: var(--text-muted); }
+.colophon-version { font-weight: 700; font-size: 10px; letter-spacing: 0.2em; color: var(--rose-light); }
+
+/* ── PRINT ────────────────────────────── */
+@page { size: A4; margin: 12mm; }
+@media print {
+  html, body { background: var(--black) !important; color: var(--white) !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .section, .section-stone, .section-light, .section-rose-wash { padding: 56px 32px !important; page-break-inside: avoid; }
+  #cover { min-height: 0 !important; page-break-after: always; }
+}
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 900px) {
+  .toc-grid { grid-template-columns: 1fr; }
+  .color-row { grid-template-columns: 1fr; }
+  .pink-rules-list { grid-template-columns: 1fr; }
+  .thesis-trio { grid-template-columns: 1fr; }
+  .type-row { grid-template-columns: 1fr; gap: 8px; }
+  .phrase-grid { grid-template-columns: 1fr; }
+  .dodont { grid-template-columns: 1fr; }
+  .photo-map { grid-template-columns: 1fr 1fr; }
+  .ref-grid { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════════════ */
+/* PACKAGE MOCKUP — recreated from real artwork     */
+/* ════════════════════════════════════════════════ */
+.pkg-stage {
+  background: radial-gradient(ellipse at 50% 50%, #1a1a1a 0%, #050505 70%);
+  padding: clamp(64px, 9vw, 140px) clamp(24px, 6vw, 96px);
+  position: relative;
+  overflow: hidden;
+}
+.pkg-stage::before {
+  content: '';
+  position: absolute;
+  left: -120px; top: 20%;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(212,181,176,0.16) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pkg-stage::after {
+  content: '';
+  position: absolute;
+  right: -80px; bottom: -80px;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(139,90,93,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.pkg-grid {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+.pkg-grid.single { grid-template-columns: 1fr; max-width: 600px; }
+
+/* The box — matte black with subtle paper texture via gradient */
+.pkg-box {
+  position: relative;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #1c1c1c 0%, #0a0a0a 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    0 10px 24px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  padding: 48px 36px;
+  aspect-ratio: 3 / 4;
+  display: flex; flex-direction: column; justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.pkg-box.with-rotate {
+  transform: rotate(-3deg);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pkg-box.with-rotate:hover { transform: rotate(0deg); }
+
+/* Silver foil effect — used for all type on the box */
+.pkg-foil {
+  color: transparent;
+  background-image: linear-gradient(135deg,
+    #c8c8c8 0%,
+    #f0f0f0 25%,
+    #a8a8a8 50%,
+    #e8e8e8 75%,
+    #b0b0b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+.pkg-logo {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin-bottom: 6px;
+}
+.pkg-logo sup {
+  font-size: 0.32em;
+  vertical-align: super;
+  font-weight: 500;
+}
+.pkg-sub {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  line-height: 1.25;
+}
+
+.pkg-tag-block {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.pkg-tag {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+.pkg-tag-rule {
+  width: 64px; height: 1px;
+  background: linear-gradient(90deg, transparent, #b8b8b8 50%, transparent);
+  opacity: 0.7;
+}
+
+/* Side panel — 21-free icons */
+.pkg-side {
+  position: relative;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px),
+    linear-gradient(135deg, #1a1a1a 0%, #060606 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    0 10px 24px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  aspect-ratio: 1 / 4;
+  max-width: 110px;
+  margin: 0 auto;
+  padding: 28px 0;
+  display: flex; flex-direction: column; justify-content: space-around;
+  align-items: center;
+}
+.pkg-icon-row { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pkg-icon {
+  width: 28px; height: 28px;
+  stroke: #b8b8b8; fill: none; stroke-width: 1.4;
+  opacity: 0.85;
+}
+.pkg-icon-label {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  text-align: center;
+}
+.pkg-21 {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Open-box scene — shows the bottle inside */
+.pkg-open {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 30%, #2a2a2a 0%, #0a0a0a 75%);
+  border-radius: 6px;
+  aspect-ratio: 4 / 3;
+  padding: 28px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.7),
+    inset 0 0 60px rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.pkg-open::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 80%);
+  border-radius: 6px 6px 0 0;
+  pointer-events: none;
+}
+.pkg-open img {
+  max-height: 80%; max-width: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+}
+
+/* Right-side intro copy beside packaging */
+.pkg-copy {}
+.pkg-copy .eyebrow {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #d4b5b0;
+  margin-bottom: 24px; display: block;
+}
+.pkg-copy h2 {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #fafafa;
+  margin-bottom: 22px;
+}
+.pkg-copy .lead {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 500; font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  max-width: 44ch;
+}
+.pkg-copy .rose-bar {
+  display: block; width: 56px; height: 2px;
+  background: #d4b5b0; margin: 0 0 24px;
+}
+.pkg-copy .meta {
+  display: grid; grid-template-columns: auto auto; gap: 8px 28px;
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600; font-size: 12px;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pkg-copy .meta span:nth-child(odd) { color: #d4b5b0; font-weight: 700; }
+
+/* Two-box display — closed front and side panels */
+.pkg-pair {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .pkg-grid { grid-template-columns: 1fr; gap: 40px; }
+  .pkg-pair { gap: 10px; }
+  .pkg-box { padding: 36px 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════ COVER ════════ -->
+<section id="cover" data-screen-label="01 Cover">
+  <div class="cover-text">
+    <div class="cover-meta-row">
+      <span class="cover-version">Brand Book V2 · May 2026</span>
+      <span class="cover-doc">Prepared for JT &amp; Mindy</span>
+    </div>
+
+    <div class="cover-mark-block">
+      <img class="cover-mark-img" src="assets/logo-mark.png" alt="Astarté" />
+      <div class="cover-stack-headline">
+        <div>Heritage.</div>
+        <div>Recognition.</div>
+        <div>Celebration.</div>
+      </div>
+      <div class="cover-rose-bar"></div>
+      <div class="cover-tagline">
+        Astarté is the first fully inclusive<br>makeup line. Period.
+        <span class="dim">Founded 1970. Returning 2026 —</span>
+      </div>
+    </div>
+
+    <div class="cover-base">
+      <div class="cover-base-col">
+        <span class="cover-base-label">Authority</span>
+        <span class="cover-base-value">May 12, 2026 weekly call</span>
+      </div>
+      <div class="cover-base-col">
+        <span class="cover-base-label">Status</span>
+        <span class="cover-base-value">Binding — supersedes V1</span>
+      </div>
+      <div class="cover-base-col">
+        <span class="cover-base-label">Prepared by</span>
+        <span class="cover-base-value">Beauty Hub AI</span>
+      </div>
+    </div>
+  </div>
+  <div class="cover-img-wrap">
+    <div class="cover-rose-edge"></div>
+    <img src="assets/campaign-hero.jpg" alt="Astarté V2 hero — woman and Signature Foundation minis" />
+  </div>
+</section>
+
+<!-- ════════ TOC ════════ -->
+<section id="toc" data-screen-label="02 Contents">
+  <div class="inner" style="max-width:var(--max);margin:0 auto;">
+    <div class="page-mark"><span class="pm-num">·</span><span class="pm-dot"></span><span class="pm-cat">Contents</span></div>
+    <div class="toc-grid">
+      <div>
+        <div class="toc-row"><span class="toc-num">00</span><span class="toc-title">Logo Marks</span><span class="toc-page">p.03</span></div>
+        <div class="toc-row"><span class="toc-num">01</span><span class="toc-title">Brand Thesis</span><span class="toc-page">p.04</span></div>
+        <div class="toc-row"><span class="toc-num">02</span><span class="toc-title">Legacy Headline &amp; Tagline</span><span class="toc-page">p.05</span></div>
+        <div class="toc-row"><span class="toc-num">03</span><span class="toc-title">Voice Rules</span><span class="toc-page">p.06</span></div>
+        <div class="toc-row"><span class="toc-num">04</span><span class="toc-title">Phrase Bank</span><span class="toc-page">p.07</span></div>
+        <div class="toc-row"><span class="toc-num">05</span><span class="toc-title">Typography</span><span class="toc-page">p.08</span></div>
+      </div>
+      <div>
+        <div class="toc-row"><span class="toc-num">06</span><span class="toc-title">Color System</span><span class="toc-page">p.09</span></div>
+        <div class="toc-row"><span class="toc-num">07</span><span class="toc-title">Photography Direction</span><span class="toc-page">p.10</span></div>
+        <div class="toc-row"><span class="toc-num">07.5</span><span class="toc-title">Packaging</span><span class="toc-page">p.10b</span></div>
+        <div class="toc-row"><span class="toc-num">08</span><span class="toc-title">Heritage Lineage</span><span class="toc-page">p.11</span></div>
+        <div class="toc-row"><span class="toc-num">09</span><span class="toc-title">Homepage Rules</span><span class="toc-page">p.12</span></div>
+        <div class="toc-row"><span class="toc-num">10</span><span class="toc-title">References &amp; Scope</span><span class="toc-page">p.13</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 00 LOGO MARKS ════════ -->
+<section class="section" data-screen-label="03 Logo Marks">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">00</span><span class="pm-dot"></span><span class="pm-cat">Logo Marks</span></div>
+    <h2 class="h1" style="font-size:clamp(40px,5.5vw,72px);margin-bottom:32px;">Two marks. One brand.</h2>
+    <span class="rose-rule-mid" style="margin:0 0 32px;"></span>
+    <p class="body-text" style="max-width:680px;margin-bottom:48px;">Astarté uses a primary <strong style="color:var(--white);font-weight:700;">circle lockup</strong> for hero and iconic moments, and a horizontal <strong style="color:var(--white);font-weight:700;">wordmark</strong> for navigation, footers, and any horizontal context where the circle would crop awkwardly. Both are equally canonical — never recreate, never approximate, never substitute a typographic stand-in.</p>
+
+    <!-- Primary mark — circle lockup -->
+    <h3 class="h3" style="margin-bottom:18px;">Primary · Circle lockup</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+      <div style="background:#0a0a0a;border:1px solid var(--line);padding:64px 32px;display:flex;align-items:center;justify-content:center;min-height:320px;">
+        <img src="assets/logo-mark.png" alt="Astarté circle lockup on dark" style="width:240px;max-width:80%;height:auto;display:block;" />
+      </div>
+      <div style="background:var(--white);padding:64px 32px;display:flex;align-items:center;justify-content:center;min-height:320px;">
+        <img src="assets/logo-mark-dark.png" alt="Astarté circle lockup on light" style="width:240px;max-width:80%;height:auto;display:block;" />
+      </div>
+    </div>
+    <p class="body-text" style="max-width:560px;font-size:13px;margin-bottom:48px;">Use the circle lockup at <strong style="color:var(--white);font-weight:700;">cover scale</strong> — investor deck title slides, About page hero, trailer end card, packaging, Instagram avatar. Minimum reproduction: 80px digital, 16mm print.</p>
+
+    <!-- Secondary mark — horizontal wordmark -->
+    <h3 class="h3" style="margin-bottom:18px;">Secondary · Horizontal wordmark</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+      <div style="background:#0a0a0a;border:1px solid var(--line);padding:64px 48px;display:flex;align-items:center;justify-content:center;min-height:200px;">
+        <img src="assets/logo-transparent.png" alt="Astarté wordmark on dark" style="width:280px;max-width:90%;height:auto;display:block;filter:invert(1);" />
+      </div>
+      <div style="background:var(--white);padding:64px 48px;display:flex;align-items:center;justify-content:center;min-height:200px;">
+        <img src="assets/logo-transparent.png" alt="Astarté wordmark on light" style="width:280px;max-width:90%;height:auto;display:block;" />
+      </div>
+    </div>
+    <p class="body-text" style="max-width:560px;font-size:13px;margin-bottom:48px;">Use the horizontal wordmark in <strong style="color:var(--white);font-weight:700;">navigation bars</strong>, <strong style="color:var(--white);font-weight:700;">footers</strong>, <strong style="color:var(--white);font-weight:700;">email signatures</strong>, and any horizontal lockup. Minimum reproduction: 20px digital, 6mm print.</p>
+
+    <!-- Rules -->
+    <div class="callout">
+      <div class="callout-label">Mark rules · binding</div>
+      <p class="callout-text"><strong>Clear space</strong> equals the cap-height of the "a" on all four sides. <strong>Never recolor</strong> outside the brand palette — white-on-dark and black-on-white only. <strong>Never stretch, skew, rotate, or outline.</strong> The red accent on the "é" stays red across all uses; this is intentional brand color, not a stand-in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 01 BRAND THESIS ════════ -->
+<section class="section" data-screen-label="03 Brand Thesis">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">01</span><span class="pm-dot"></span><span class="pm-cat">Brand Thesis</span></div>
+    <h2 class="h1">Heritage. Recognition. Celebration.</h2>
+    <span class="rose-rule-mid" style="margin:32px 0;"></span>
+    <p class="body-text" style="max-width:680px;">Astarté is the first fully inclusive makeup line. Period. Founded 1970. Returning 2026 — reformulated, performance-tuned, and built for the customer who has waited decades to be recognized.</p>
+
+    <div class="thesis-trio">
+      <div class="thesis-card">
+        <span class="thesis-num">01 · Heritage</span>
+        <div class="thesis-name">First fully inclusive makeup line. Period.</div>
+        <p class="thesis-body">Founded in 1970 by <strong style="color:var(--white);font-weight:700;">Mari Aldin</strong>, with <strong style="color:var(--white);font-weight:700;">Pat Evans</strong> as the original face and <strong style="color:var(--white);font-weight:700;">Ruby Dee</strong> on the 1970 voice-over tape — formulated for every skin tone before there was a word for it. Featured in Poetic Justice (1993). Verified by Columbia Chemistry Lab. Heritage credibility is the moat.</p>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-num">02 · Recognition</span>
+        <div class="thesis-name">Seen. Matched. Understood.</div>
+        <p class="thesis-body">BIPOC consumers spend 30% more than the US beauty average, and are 3× more dissatisfied with their purchases. Recognition is the emotional payoff every other inclusive brand has chased since Fenty.</p>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-num">03 · Celebration</span>
+        <div class="thesis-name">Love my shade. Love Astarté.</div>
+        <p class="thesis-body">The brand's voice warms in body copy — "love my shade," "embrace your skin color," "makeup that loves every skin tone." Heritage frames the headline; celebration carries the day-to-day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 02 LEGACY HEADLINE & TAGLINE ════════ -->
+<section class="section-rose-wash" data-screen-label="04 Headline and Tagline">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">02</span><span class="pm-dot"></span><span class="pm-cat">Legacy Headline &amp; Tagline</span></div>
+    <h2 class="h2" style="margin-bottom:20px;">Two canonical lines.</h2>
+    <p class="body-text" style="max-width:560px;margin-bottom:48px;">Both are locked. The legacy headline anchors heritage moments — investor decks, press, brand book. The tagline carries day-to-day marketing. Neither is to be paraphrased or softened.</p>
+
+    <div style="border-top:1px solid var(--rose-line);padding-top:32px;margin-bottom:24px;">
+      <span class="eyebrow eyebrow-rose-light">Legacy headline · canonical</span>
+      <h1 class="h1" style="font-size:clamp(36px,5vw,72px);">First fully inclusive makeup line. <span style="color:var(--rose-light);">Period.</span></h1>
+      <p class="body-text" style="margin-top:14px;max-width:520px;font-size:13px;">Heritage anchor. Use on investor surfaces, About page hero, press one-liners.</p>
+    </div>
+
+    <div style="border-top:1px solid var(--rose-line);padding-top:32px;">
+      <span class="eyebrow eyebrow-rose-light">Tagline · canonical · always italic</span>
+      <div class="tagline-italic" style="color:var(--white);margin-bottom:8px;">"Makeup that loves every skin tone."</div>
+      <p class="body-text" style="margin-top:14px;max-width:520px;font-size:13px;"><strong style="color:var(--white);font-weight:700;">Makeup</strong> — never "cosmetics" in marketing. The registered <span style="color:var(--rose-light);">"Cosmetics that love every skin tone®"</span> is for business / investor / legal materials only.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 03 VOICE RULES ════════ -->
+<section class="section" data-screen-label="05 Voice Rules">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">03</span><span class="pm-dot"></span><span class="pm-cat">Voice Rules</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Plain, confident, never decorative.</h2>
+    <p class="body-text" style="max-width:560px;margin-bottom:32px;">Astarté speaks plainly, with technical confidence, and with the assumption that the customer is intelligent. No goddess language. No shade-count headlines. No apologetic framing.</p>
+
+    <div class="callout">
+      <div class="callout-label">Critical formula language</div>
+      <p class="callout-text">Astarté has been <strong>reformulated</strong> for 2026 — it is not the same formula bottled again. Use <strong>"performance is the same"</strong> when speaking to legacy customers. <strong>Never</strong> use "same formula," "original formula returns," or "the formula returns" — those phrases are inaccurate and create a regulatory problem.</p>
+    </div>
+
+    <h3 class="h3" style="margin-top:48px;margin-bottom:16px;">Terminology split</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="border:1px solid var(--line);padding:24px 26px;">
+        <div style="font-weight:500;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:8px;">Marketing surfaces</div>
+        <div style="font-weight:700;font-size:24px;color:var(--white);letter-spacing:-0.02em;margin-bottom:8px;">Makeup</div>
+        <p class="body-text" style="font-size:13px;">Homepage. PDP. Collection. Email. Trailer. Social.</p>
+      </div>
+      <div style="border:1px solid var(--line);padding:24px 26px;">
+        <div style="font-weight:500;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:8px;">Investor surfaces</div>
+        <div style="font-weight:700;font-size:24px;color:var(--white);letter-spacing:-0.02em;margin-bottom:8px;">Cosmetics</div>
+        <p class="body-text" style="font-size:13px;">Pitch decks. Term sheets. Legal. Registered marks.</p>
+      </div>
+    </div>
+
+    <div class="dodont">
+      <div class="dodont-col do">
+        <h4>Words to always use</h4>
+        <ul>
+          <li><strong>Weightless</strong> — performance feel</li>
+          <li><strong>Second skin</strong> — finish description</li>
+          <li><strong>Clean performance</strong> — formula category</li>
+          <li><strong>Keeps up with you</strong> — lifestyle range</li>
+          <li><strong>Lightweight</strong> — texture</li>
+          <li><strong>Color-complementing</strong> — technology marker</li>
+          <li><strong>21-free</strong> — formulation claim</li>
+          <li><strong>Oil-free, talc-free, fragrance-free, paraben-free</strong></li>
+          <li><strong>Hypoallergenic, gentle for sensitive skin</strong></li>
+        </ul>
+      </div>
+      <div class="dodont-col dont">
+        <h4>Words to never use</h4>
+        <ul>
+          <li><strong>Full coverage</strong> — wrong category positioning</li>
+          <li><strong>Heavy</strong> — opposite of the formula</li>
+          <li><strong>Thick</strong> — opposite of the formula</li>
+          <li><strong>Same formula</strong> — inaccurate post-reformulation</li>
+          <li><strong>Original formula returns</strong> — inaccurate</li>
+          <li><strong>The formula returns</strong> — inaccurate</li>
+          <li><strong>Cosmetics</strong> — in any marketing context</li>
+          <li><strong>Goddess</strong> — in any customer-facing copy</li>
+          <li>"Luxe / babe / girl / queen"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 04 PHRASE BANK ════════ -->
+<section class="section-stone" data-screen-label="06 Phrase Bank">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">04</span><span class="pm-dot"></span><span class="pm-cat">Phrase Bank</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Load-bearing phrases.</h2>
+    <p class="body-text" style="max-width:560px;">These appear across hero, PDP, About, sampler page, email, trailer. Others may exist; these must appear.</p>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Homepage carousel · the four locked headlines</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">01</span>Makeup that loves every skin tone.</div>
+        <div class="phrase"><span class="num">02</span>Second skin makeup for every part of your life.</div>
+        <div class="phrase"><span class="num">03</span>Clean performance makeup that keeps up with everything you are.</div>
+        <div class="phrase"><span class="num">04</span>Weightless makeup that rises to the occasion.</div>
+      </div>
+    </div>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Heritage anchors</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">05</span>First fully inclusive makeup line. Period.</div>
+        <div class="phrase"><span class="num">06</span>Since 1970.</div>
+        <div class="phrase"><span class="num">07</span>Color-Complementing Technology®.</div>
+        <div class="phrase"><span class="num">08</span>Verified by Columbia Chemistry Lab.</div>
+      </div>
+    </div>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Celebration &amp; recognition</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">09</span>Love my shade.</div>
+        <div class="phrase"><span class="num">10</span>Love Astarté.</div>
+        <div class="phrase"><span class="num">11</span>Embrace your skin color.</div>
+        <div class="phrase"><span class="num">12</span>We're celebrating.</div>
+      </div>
+    </div>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Calls to action</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">13</span>Get Your Mini.</div>
+        <div class="phrase"><span class="num">14</span>Order Samples.</div>
+        <div class="phrase"><span class="num">15</span>Find your shade.</div>
+        <div class="phrase"><span class="num">16</span>Start here.</div>
+      </div>
+    </div>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Rebirth · the relaunch frame</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">17</span>Rebirth.</div>
+        <div class="phrase"><span class="num">18</span>Performance is the same.</div>
+        <div class="phrase"><span class="num">19</span>Heritage. Recognition. Celebration.</div>
+        <div class="phrase"><span class="num">20</span>Formula 50 years ahead of the conversation.</div>
+      </div>
+    </div>
+
+    <div class="phrase-cluster">
+      <div class="phrase-cluster-label">Customer voice · the lines they say back to us</div>
+      <div class="phrase-grid">
+        <div class="phrase"><span class="num">21</span>Skin in a bottle.</div>
+        <div class="phrase"><span class="num">22</span>Astarté disappears but it's there and gives you coverage.</div>
+        <div class="phrase"><span class="num">23</span>Like a baby's skin.</div>
+        <div class="phrase"><span class="num">24</span>My shade.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 05 TYPOGRAPHY ════════ -->
+<section class="section" data-screen-label="07 Typography">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">05</span><span class="pm-dot"></span><span class="pm-cat">Typography</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Albert Sans — three weights.</h2>
+    <p class="body-text" style="max-width:600px;margin-bottom:16px;">A single family across the brand. <strong style="color:var(--white);font-weight:700;">Body must be Medium (500) — not Regular.</strong> Regular fails accessibility at small sizes on dark backgrounds. This is binding, not stylistic.</p>
+
+    <div class="callout">
+      <div class="callout-label">Line spacing · binding</div>
+      <p class="callout-text">Line spacing is <strong>tighter</strong> than typical luxury beauty defaults. No loose, airy pacing. Body line-height: <strong>1.5–1.55</strong>. Display line-height: <strong>0.95–1.1</strong>. Small text must not feel airy or weightless on black.</p>
+    </div>
+
+    <div style="margin-top:36px;">
+      <div class="type-row">
+        <div class="type-meta">H1 · Display<span class="type-meta-sub">Albert Sans Bold · 700</span></div>
+        <div class="t-h1">Makeup that loves every skin tone.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">H2 · Section<span class="type-meta-sub">Albert Sans Regular · 400</span></div>
+        <div class="t-h2">A formula fifty years ahead of the conversation.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">H3 · Sub-head<span class="type-meta-sub">Albert Sans Bold · 700 · smaller</span></div>
+        <div class="t-h3">Color-Complementing Technology®</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body<span class="type-meta-sub">Albert Sans Medium · 500</span><span class="type-meta-warn">⚠ Never Regular — accessibility</span></div>
+        <div class="t-body" style="max-width:560px;">Clinically verified by Columbia University's Department of Chemistry Emulsion Laboratory. Does not oxidize. Does not streak. Feels like skin, not makeup.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body emphasis<span class="type-meta-sub">Albert Sans SemiBold · 600</span></div>
+        <div class="t-sb">Available for emphasis and supporting text where additional weight is required.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Eyebrow<span class="type-meta-sub">Albert Sans Medium · 500 · 0.22em tracking</span></div>
+        <div class="t-eye">Since 1970 · First Access</div>
+      </div>
+      <div class="type-row" style="border-bottom:none;">
+        <div class="type-meta">Italic<span class="type-meta-sub">Albert Sans Italic · 400 · tagline + pull-quote only</span></div>
+        <div class="t-ital">Makeup that loves every skin tone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 06 COLOR SYSTEM ════════ -->
+<section class="section-stone" data-screen-label="08 Color System">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">06</span><span class="pm-dot"></span><span class="pm-cat">Color System</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Four colors. Pink is tertiary.</h2>
+    <p class="body-text" style="max-width:600px;margin-bottom:8px;"><strong style="color:var(--white);font-weight:700;">Black is dominant.</strong> Whisper White carries space. Stone is the tonal middle. Pink is an accessory — not a co-equal third color. Sonia's analog: "Wearing black and white with a pink accessory."</p>
+
+    <!-- PRIMARY -->
+    <div class="color-section">
+      <div class="color-section-label">Primary · Dominant</div>
+      <div class="color-section-rank">Rank 01 — Black</div>
+      <div class="color-row">
+        <div class="color-card">
+          <div class="color-chip" style="background:#0a0a0a;"></div>
+          <div class="color-meta">
+            <div class="color-name">Hero Black <span class="color-name-tag tbd">Working</span></div>
+            <div class="color-hex">#0A0A0A</div>
+            <div class="color-use">Homepage dominant surface · trailer end card · hero band.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-chip" style="background:#2d2d2d;"></div>
+          <div class="color-meta">
+            <div class="color-name">Dark Grey <span class="color-name-tag locked">Mindy locked</span></div>
+            <div class="color-hex">#2D2D2D · RGB 45,45,45</div>
+            <div class="color-use">Section bands · navigation typography · inner surfaces.</div>
+          </div>
+        </div>
+        <div class="color-card" style="background:rgba(255,255,255,0.01);border-style:dashed;"></div>
+      </div>
+    </div>
+
+    <!-- SECONDARY + SUPPORTING -->
+    <div class="color-section">
+      <div class="color-section-label">Secondary &amp; Supporting</div>
+      <div class="color-section-rank">Rank 02 — Whisper White · Rank 03 — Stone Mid Gray</div>
+      <div class="color-row">
+        <div class="color-card">
+          <div class="color-chip" style="background:#ffffff;"></div>
+          <div class="color-meta">
+            <div class="color-name">Whisper White <span class="color-name-tag locked">Mindy locked</span></div>
+            <div class="color-hex">#FFFFFF</div>
+            <div class="color-use">Inner-page sections · breathing room · light-mode surfaces.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-chip" style="background:#6b6b6b;"></div>
+          <div class="color-meta">
+            <div class="color-name">Stone A — warmer <span class="color-name-tag tbd">For ratification</span></div>
+            <div class="color-hex">#6B6B6B · proposed</div>
+            <div class="color-use">Tonal middle — captions, secondary text, alt-state details.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-chip" style="background:#5a5a5a;"></div>
+          <div class="color-meta">
+            <div class="color-name">Stone B — cooler <span class="color-name-tag tbd">For ratification</span></div>
+            <div class="color-hex">#5A5A5A · proposed</div>
+            <div class="color-use">Alternative stone — slightly cooler reading on black surfaces.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERTIARY · ROSE GRADIENT -->
+    <div class="color-section">
+      <div class="color-section-label">Tertiary · Accent only</div>
+      <div class="color-section-rank">Rank 04 — Dusty Rose · 3-shade gradient</div>
+      <div class="color-row gradient">
+        <div class="color-card">
+          <div class="color-chip" style="background:#d4a5a8;"></div>
+          <div class="color-meta">
+            <div class="color-name">Rose Lighter <span class="color-name-tag tbd">For ratification</span></div>
+            <div class="color-hex">#D4A5A8 · proposed</div>
+            <div class="color-use">Soft section backgrounds · subtle washes · hover states.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-chip" style="background:#b38285;"></div>
+          <div class="color-meta">
+            <div class="color-name">Rose Medium <span class="color-name-tag locked">Mindy locked</span></div>
+            <div class="color-hex">#B38285 · RGB 179,130,133</div>
+            <div class="color-use">Anchor accent — heritage badges, dividers, "first access" rules.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-chip" style="background:#7a4a4e;"></div>
+          <div class="color-meta">
+            <div class="color-name">Rose Darker <span class="color-name-tag tbd">For ratification</span></div>
+            <div class="color-hex">#7A4A4E · investor-deck ref</div>
+            <div class="color-use">Deep editorial moments · footer tagline · italic emphasis on dark.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pink-rules-block">
+      <div class="pink-rules-label">Pink rules — binding</div>
+      <ul class="pink-rules-list">
+        <li>Pink is an <strong style="color:var(--white);font-weight:700;">accessory</strong> color — like wearing black and white with a pink accessory (Sonia, May 12).</li>
+        <li>Pink can appear as a <strong style="color:var(--white);font-weight:700;">bright accent</strong> OR a <strong style="color:var(--white);font-weight:700;">soft section background</strong> — never primary or dominant.</li>
+        <li>Pink always carries a <strong style="color:var(--white);font-weight:700;">3-shade gradient</strong> for Shopify implementation flexibility.</li>
+        <li>Pink must read elevated and feminine — <strong style="color:var(--white);font-weight:700;">never girly or saccharine.</strong></li>
+        <li>Light pink can read too white on dark backgrounds — <strong style="color:var(--white);font-weight:700;">test before locking values.</strong></li>
+        <li>Reference darker dusty rose shades from <strong style="color:var(--white);font-weight:700;">the Astarté investor deck (Feb 2025)</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Hex values · for Mindy ratification</div>
+      <p class="callout-text">Three working values above are <strong>locked from Mindy's intake</strong>: Dark Grey #2D2D2D, Whisper White #FFFFFF, Rose Medium #B38285. Five values are <strong>proposed for ratification</strong>: Hero Black #0A0A0A, Stone A #6B6B6B, Stone B #5A5A5A, Rose Lighter #D4A5A8, Rose Darker #7A4A4E. Surface to Mindy for explicit approval before final lock.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ════════ 07.5 PACKAGING ════════ -->
+<section class="pkg-stage" data-screen-label="10 Packaging">
+  <div style="max-width:1200px;margin:0 auto 56px;position:relative;z-index:1;">
+    <div class="page-mark"><span class="pm-num" style="color:#d4b5b0;">07.5</span><span class="pm-dot"></span><span class="pm-cat" style="color:rgba(255,255,255,0.5);">Packaging</span></div>
+    <h2 class="h2" style="color:#fafafa;margin-bottom:18px;max-width:640px;">The mini, in its black box.</h2>
+    <p class="body-text" style="color:rgba(255,255,255,0.65);max-width:600px;">Matte black paper. Silver foil typography. Custom astarté logo at top, "signature foundation" beneath, "Makeup that loves every skin tone." across the front. Side panel carries the three formulation marks. Inside: the mini, in a fitted slot, ready for first use.</p>
+  </div>
+
+  <div class="pkg-grid">
+
+    <!-- Closed box, front + side -->
+    <div class="pkg-pair">
+      <div class="pkg-box with-rotate">
+        <div>
+          <div class="pkg-foil pkg-logo">astart&eacute;</div>
+          <div class="pkg-foil pkg-sub">signature<br>foundation</div>
+        </div>
+        <div class="pkg-tag-block">
+          <div class="pkg-foil pkg-tag">Makeup that loves<br>every skin tone.</div>
+          <div class="pkg-tag-rule"></div>
+        </div>
+      </div>
+      <div class="pkg-side">
+        <div class="pkg-icon-row">
+          <svg class="pkg-icon" viewBox="0 0 24 24"><path d="M12 3 C 16 9, 19 13, 19 16 a 7 7 0 0 1 -14 0 c 0 -3, 3 -7, 7 -13 z"/></svg>
+          <div class="pkg-foil pkg-icon-label">Oil-Free<br>Formula</div>
+        </div>
+        <div class="pkg-icon-row">
+          <div class="pkg-foil pkg-21">21</div>
+          <div class="pkg-foil pkg-icon-label" style="font-size:7px;">Free</div>
+          <div class="pkg-foil pkg-icon-label" style="margin-top:2px;">No Harmful<br>Toxins</div>
+        </div>
+        <div class="pkg-icon-row">
+          <svg class="pkg-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="15" rx="6" ry="5"/><path d="M8 11 C 7 6, 6 4, 7 4 C 9 5, 10 8, 10 10"/><path d="M16 11 C 17 6, 18 4, 17 4 C 15 5, 14 8, 14 10"/><circle cx="10" cy="15" r="0.5" fill="#b8b8b8"/><circle cx="14" cy="15" r="0.5" fill="#b8b8b8"/></svg>
+          <div class="pkg-foil pkg-icon-label">Vegan &amp;<br>Cruelty Free</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: open-box scene with bottle visible -->
+    <div>
+      <div class="pkg-open" style="padding:0;background:#000;overflow:hidden;display:block;">
+        <img src="assets/pkg-hero-2.jpg" alt="Signature Foundation mini package, open" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="pkg-copy" style="margin-top:36px;">
+        <span class="eyebrow">15ml · First access</span>
+        <h2>Built around the bottle.</h2>
+        <span class="rose-bar"></span>
+        <p class="lead">A black-on-black gift package built around a single mini. The bottle sits inside a fitted matte-black tray. No styling tricks — just black paper, silver foil, and the formula.</p>
+        <div class="meta">
+          <span>Size</span><span>0.5 fl oz / 15 ml</span>
+          <span>Print</span><span>Silver foil on matte black</span>
+          <span>Shape</span><span>Square gift box, side-fold</span>
+          <span>Finish</span><span>Embossed logo, hot-stamp foil</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ 07 PHOTOGRAPHY DIRECTION ════════ -->
+<section class="section" data-screen-label="09 Photography Direction">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">07</span><span class="pm-dot"></span><span class="pm-cat">Photography Direction</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Women in life. Real settings. Aspirational restraint.</h2>
+    <p class="body-text" style="max-width:640px;margin-bottom:8px;">Per Mindy, May 12: <em style="font-weight:500;font-style:italic;color:var(--white);">"Women shining in a variety of settings, moments, hair types, and occupations — aspirational in the sense that they should show great skin, look put together, and show people looking their best."</em></p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px;">
+      <div style="border:1px solid var(--line);padding:28px;">
+        <div style="font-weight:500;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:12px;">Casting</div>
+        <ul class="dodont-col" style="border:none;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Women 30s–60s</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>BIPOC-led casting · the full range of skin tones</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Variety of hair types and textures</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Range of professional and personal occupations</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Real-life moments — not styled studio portraits</li>
+        </ul>
+      </div>
+      <div style="border:1px solid var(--line);padding:28px;">
+        <div style="font-weight:500;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:12px;">Aesthetic</div>
+        <ul class="dodont-col" style="border:none;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Editorial, natural light, low-key dramatic</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Great skin visible — light works with skin</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>"Looking their best" — put together, never overstyled</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>No before/afters · no makeup-removal narrative</li>
+          <li class="body-text" style="font-size:13.5px;display:flex;gap:10px;"><span style="color:var(--rose-mid);">·</span>Echo trial-box packaging — black-dominant, minimal, elevated</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="h3" style="margin-top:48px;margin-bottom:8px;">Photography moments — homepage three-panel reference</h3>
+    <p class="body-text" style="max-width:540px;font-size:13.5px;">JT's three-panel concept: women side-by-side in angled / triangular composition. Each panel a vignette with caption.</p>
+
+    <div class="photo-map">
+      <div class="photo-cell" style="background-image:url('assets/woman-latina-cafe.jpg');background-size:cover;background-position:center;">
+        <div class="photo-tag">Moment 01</div>
+        <div class="photo-caption">A social moment.<br><span style="color:var(--text-muted);font-weight:500;font-size:11px;">Cafe · warm window light · with friends</span></div>
+      </div>
+      <div class="photo-cell" style="background-image:url('assets/woman-asian-shade.jpg');background-size:cover;background-position:center;">
+        <div class="photo-tag">Moment 02</div>
+        <div class="photo-caption">The shade lands.<br><span style="color:var(--text-muted);font-weight:500;font-size:11px;">Vanity · daylight · application · happy</span></div>
+      </div>
+      <div class="photo-cell" style="background-image:url('assets/woman-black-street.jpg');background-size:cover;background-position:center;">
+        <div class="photo-tag">Moment 03</div>
+        <div class="photo-caption">Real-life wear.<br><span style="color:var(--text-muted);font-weight:500;font-size:11px;">Street · cinematic · honest</span></div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:36px;">
+      <div class="callout-label">Asset status</div>
+      <p class="callout-text">Mari Aldin photography is <strong>pending from client</strong>. Current asset library is product photography only. Homepage will use art-directed placeholder panels with explicit "photography pending" treatment until Mari's images arrive.</p>
+    </div>
+
+    <!-- Phase 1 / Phase 2 launch context (May 19 direction doc) -->
+    <div class="callout" style="margin-top:24px;">
+      <div class="callout-label">Phase 1 vs Phase 2 — binding</div>
+      <p class="callout-text">The current build is <strong>Phase 1 only</strong>: Foundation Mini (15ml, $30) and the Sampler Pack ($12). The full-size 30ml and Pressed Powder are <strong>Phase 2 products</strong>, three to four months out. <strong>Do not feature Phase 2 products</strong> in current website, trailer, or campaign deliverables. Phase 2 timing trigger is pending — date, traction milestone, or funding milestone TBD.</p>
+    </div>
+
+    <!-- Product Photography subsection — real mini bottle imagery -->
+    <h3 class="h3" style="margin-top:64px;margin-bottom:8px;">Product photography — the mini</h3>
+    <p class="body-text" style="max-width:600px;font-size:13.5px;margin-bottom:24px;">The Signature Foundation Mini (15ml) is the only product physically in inventory for Phase 1. Its imagery is unfussy, dark-dominant, dropper-detail forward — echoing the trial-box packaging aesthetic. Black background, single light source, no styling tricks.</p>
+
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;margin-top:24px;">
+      <div style="aspect-ratio:4/5;background:#0a0a0a;overflow:hidden;border:1px solid var(--line);position:relative;">
+        <img src="assets/pkg-hero-1.jpg" alt="Astarté package and mini bottle" style="width:100%;height:100%;object-fit:cover;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 18px;background:linear-gradient(180deg,transparent,rgba(10,10,10,0.85));z-index:1;">
+          <div style="font-weight:700;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:4px;">Hero</div>
+          <div style="font-weight:500;font-size:12px;color:var(--white);line-height:1.4;">Package &amp; bottle · brand hero</div>
+        </div>
+      </div>
+      <div style="aspect-ratio:4/5;background:#0a0a0a;overflow:hidden;border:1px solid var(--line);position:relative;">
+        <img src="assets/pkg-hero-2.jpg" alt="Astarté open package with mini bottle" style="width:100%;height:100%;object-fit:cover;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(180deg,transparent,rgba(10,10,10,0.85));z-index:1;">
+          <div style="font-weight:700;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:4px;">Editorial</div>
+          <div style="font-weight:500;font-size:12px;color:var(--white);line-height:1.4;">Open package · reveal moment</div>
+        </div>
+      </div>
+      <div style="aspect-ratio:4/5;background:#0a0a0a;overflow:hidden;border:1px solid var(--line);position:relative;">
+        <img src="assets/product-marble-water.jpg" alt="Mini bottles in marble water environment" style="width:100%;height:100%;object-fit:cover;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(180deg,transparent,rgba(10,10,10,0.85));z-index:1;">
+          <div style="font-weight:700;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-light);margin-bottom:4px;">PDP</div>
+          <div style="font-weight:500;font-size:12px;color:var(--white);line-height:1.4;">Marble · water · product world</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <div class="callout-label">Mini imagery · usage rule</div>
+      <p class="callout-text">Mini bottle imagery appears on the <strong>homepage Collection card</strong>, the <strong>"Be First" section</strong>, the <strong>PDP</strong>, and the <strong>email signature</strong>. <strong>Full-size 30ml imagery is excluded</strong> from all marketing surfaces — JT mandate, May 12. Photography honors the dropper detail and the black-dominant packaging aesthetic; no overstyling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 08 HERITAGE LINEAGE ════════ -->
+<section class="section-rose-wash" data-screen-label="10 Heritage Lineage">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">08</span><span class="pm-dot"></span><span class="pm-cat">Heritage Lineage</span></div>
+    <h2 class="h2" style="margin-bottom:16px;max-width:640px;">Five decades. One claim no one else can make.</h2>
+    <p class="body-text" style="max-width:600px;margin-bottom:48px;">Astarté's heritage is its uncopiable moat. Every other inclusive brand has had to catch up. The lineage is built from documented moments — not invented mythology. The brand book treats this lineage as the dominant emotional asset of the relaunch.</p>
+
+    <!-- The lineage strip -->
+    <div style="display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--rose-line);border-bottom:1px solid var(--rose-line);">
+
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <div style="font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.03em;color:var(--rose-light);line-height:1;">1970</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;">Mari Aldin founds Astarté.</div>
+          <p class="body-text" style="font-size:13.5px;">The first fully inclusive makeup line. Period. Pat Evans is the original face on the 1970 packaging; Ruby Dee delivers the 1970 voice-over (audio archive located May 14, on 7” magnetic tape).</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <div style="font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.03em;color:var(--rose-light);line-height:1;">1970s</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;">Outsold Revlon at retail — at twice the price.</div>
+          <p class="body-text" style="font-size:13.5px;">First independent beauty brand stocked in U.S. military PXs. Word of mouth across generations of BIPOC consumers who finally found a match.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <div style="font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.03em;color:var(--rose-light);line-height:1;">1993</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;">Featured in Poetic Justice.</div>
+          <p class="body-text" style="font-size:13.5px;">A cultural artifact without a press strategy. Cited in the textbook-of-record as a pioneer of inclusive cosmetics.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <div style="font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.03em;color:var(--rose-light);line-height:1;">2000s</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;">A dormant period.</div>
+          <p class="body-text" style="font-size:13.5px;">The category moved forward, borrowing without acknowledgment. The formula remained in archive — performance unchanged.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:32px;padding:24px 0;align-items:baseline;">
+        <div style="font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.03em;color:var(--rose-light);line-height:1;">2026</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;">Astarté returns. Reformulated. Performance is the same.</div>
+          <p class="body-text" style="font-size:13.5px;">15ml mini in 23 shades, available now. The full 30ml returns later this year. Direct-to-consumer, tech-forward, investor-backed.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout" style="margin-top:36px;">
+      <div class="callout-label">How heritage shows up</div>
+      <p class="callout-text">The lineage lives in <strong>the About / Origins page</strong> as a chronological scroll, in <strong>the homepage</strong> as a Sold-Out-Since-the-70s reframe, in <strong>the PDP</strong> as a single dated reference line, and in <strong>the trailer</strong> as the final dated card. <strong>Verified by Columbia Chemistry Lab</strong> is the locked credibility marker that travels with every heritage reference.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 09 HOMEPAGE RULES ════════ -->
+<section class="section" data-screen-label="11 Homepage Rules">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">09</span><span class="pm-dot"></span><span class="pm-cat">Homepage Rules</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Editorial. Dark. Vignette-driven.</h2>
+    <p class="body-text" style="max-width:600px;margin-bottom:8px;">Each section is a vignette with its own narrative beat. Dark background dominant. Imagery leads, copy supports. Reference architecture: Nike (immersive carousel) + Casper Caviar (parallax footer).</p>
+
+    <div class="dodont">
+      <div class="dodont-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>Lead with <strong>editorial imagery of diverse women</strong> in life moments</li>
+          <li>Use the <strong>immersive carousel</strong> — 4 panels with rotating content</li>
+          <li>Apply the <strong>four locked carousel taglines</strong> (May 5 Mindy drafts)</li>
+          <li><strong>Dark background dominant</strong> — Hero Black as primary surface</li>
+          <li>Reference <strong>Nike homepage architecture</strong> — immersive, motion + static</li>
+          <li>Reference <strong>Casper Caviar parallax footer</strong> — captivating, not dense</li>
+          <li>Treat each section as a <strong>vignette with its own beat</strong></li>
+        </ul>
+      </div>
+      <div class="dodont-col dont">
+        <h4>Do not</h4>
+        <ul>
+          <li><strong>No full-size product bottle</strong> anywhere on the homepage — JT fully against</li>
+          <li><strong>No mini bottle</strong> on homepage — mini appears only on PDP at point of purchase</li>
+          <li><strong>No "girly girly" aesthetic</strong> — pink elevated, never childish</li>
+          <li>Do not use the word <strong>"cosmetics"</strong> in homepage copy</li>
+          <li>Do not use <strong>"same formula"</strong> or <strong>"original formula returns"</strong> — inaccurate</li>
+          <li>Do not make the homepage text-heavy — <strong>tight line spacing</strong></li>
+          <li>No <strong>traditional Sephora-style retail</strong> visual conventions</li>
+          <li>No <strong>heavy cosmetics-industry</strong> visual cues</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 10 REFERENCES & SCOPE ════════ -->
+<section class="section-stone" data-screen-label="12 References and Scope">
+  <div class="inner">
+    <div class="page-mark"><span class="pm-num">10</span><span class="pm-dot"></span><span class="pm-cat">References &amp; Scope</span></div>
+    <h2 class="h2" style="margin-bottom:16px;">Reference assets &amp; out-of-scope.</h2>
+
+    <h3 class="h3" style="margin-top:32px;margin-bottom:8px;">Reference assets to incorporate</h3>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-label">Primary visual reference</div>
+        <div class="ref-name">Astarté trial box packaging</div>
+        <div class="ref-note"><code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:3px;color:var(--rose-light);font-size:12px;">astarte_trial_box.png</code> · packaging-aesthetic-on-digital. Multilingual "my shade" panel visible.</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label">Typography prototype</div>
+        <div class="ref-name">Mindy's Figma sample site</div>
+        <div class="ref-note">H1 Albert Sans Bold, H2 Regular, body styling visible. Use for layout pacing reference.</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label">Voice + darker pink shades</div>
+        <div class="ref-name">Astarté investor deck (Feb 2025)</div>
+        <div class="ref-note">Reference for the darker dusty rose register and the brand voice in business / heritage contexts.</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label">Architecture pattern</div>
+        <div class="ref-name">Nike · homepage</div>
+        <div class="ref-note">Immersive carousel · bold type · mix of motion + static · editorial photography priority.</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label">Footer treatment</div>
+        <div class="ref-name">Casper · Caviar</div>
+        <div class="ref-note">Parallax footer · clean dynamic motion language · captivating but never dense.</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label">PDP layout</div>
+        <div class="ref-name">NARS Sheer Glow Foundation</div>
+        <div class="ref-note">Product Detail Page layout reference for the Shopify Prestige customization.</div>
+      </div>
+    </div>
+
+    <h3 class="h3" style="margin-top:56px;margin-bottom:8px;">Out of scope for this update</h3>
+    <div class="scope-list">
+      <div class="scope-item"><strong>AI shade matcher / virtual try-on</strong> — excluded per Service Agreement A.10.</div>
+      <div class="scope-item"><strong>AI customer service chatbot</strong> — excluded.</div>
+      <div class="scope-item"><strong>Full-size 30ml bottle imagery</strong> — not in inventory; no homepage placement.</div>
+      <div class="scope-item"><strong>Sephora-style retail aesthetic</strong> — JT explicit: online-only DTC.</div>
+      <div class="scope-item"><strong>Heavy cosmetics-industry visual conventions</strong> — Astarté is positioned distinctly from traditional cosmetic brand visual language.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ COLOPHON ════════ -->
+<footer class="colophon">
+  <div class="colophon-inner">
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div class="colophon-mark"><img src="assets/logo-mark.png" alt="Astarté" /></div>
+      <div class="colophon-tag"><em>Makeup that loves every skin tone.</em></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+      <div class="colophon-version">Brand Book V2 · May 14, 2026</div>
+      <div class="cover-base-value" style="font-size:11px;">Authority: May 12, 2026 call · Sonia × Mindy × JT</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
